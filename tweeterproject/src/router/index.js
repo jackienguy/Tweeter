@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import SignIn from '../views/SignIn.vue'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import Discovery from '../views/Discovery.vue'
@@ -21,6 +22,11 @@ const routes = [
     path: '/Discovery',
     name: 'Discovery',
     component: Discovery
+  },
+  {
+    path: '/SignIn',
+    name: 'Sign In',
+    component: SignIn
   }
 ]
 

@@ -19,7 +19,6 @@
 // @ is an alias to /src
 import Profile from './Profile.vue'
 import axios from 'axios';
-// import Vuetify from 'vuetify' 
 
 export default {
   name: 'Home',

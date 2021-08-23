@@ -1,33 +1,35 @@
 <template>
     <div>
     <!-- Vuetify Form for Signin -->
-    <form>
-        <v-text-field
-            v-model="name"
-            :error-messages="nameErrors"
-            label="Name"
-            required
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-        ></v-text-field>
-        <v-text-field
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-mail"
-            required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
-        ></v-text-field>
-        <v-text-field
-            v-model="password"
-            :error-messages="passwordErrors"
-            label="Password"
-            required
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()"
-        ></v-text-field>
-        <v-btn class="mr-4" @click="login">Login</v-btn>
-    </form>
+        <v-form>
+            <v-card  elevation="12" outlined shaped tile>
+                <v-toolbar dark color="blue">
+                    <v-toolbar-title>Login to Tweeter</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-text-field
+                        v-model="email"
+                        :error-messages="emailErrors"
+                        label="E-mail"
+                        required
+                        @input="$v.email.$touch()"
+                        @blur="$v.email.$touch()"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="password"
+                        :error-messages="passwordErrors"
+                        label="Password"
+                        type="password"
+                        required
+                        @input="$v.password.$touch()"
+                        @blur="$v.password.$touch()"
+                    ></v-text-field>
+                </v-card-text>
+                <v-btn class="mr-4" @click="login">Login</v-btn>
+                <p> - OR -</p>
+                <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
+            </v-card>
+        </v-form>
     </div>
 </template>
 
@@ -74,17 +76,22 @@ import { required, email } from 'vuelidate/lib/validators';
         methods: {
             login () {
                 axios.request({
-                    url:"https://tweeterest.ml/api/login",
+                    url: "https://tweeterest.ml/api/login",
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                         'X-Api-Key': process.env.VUE_APP_API_KEY
+                        'X-Api-Key': process.env.VUE_APP_API_KEY,
+                        "Content-Type": "application/json"
                     },
+                    data: {
+                        "email": "CindyLou@suess.com",
+                        "password": "IStoleChristmas"
+                    }
                 }).then((response) => {
-                    cookies.set('loginToken', response.data.token);
+                    cookies.set ('loginToken', response.data.token);
                     console.log(response.data.token);
-                }).catch((err) => {
-                    console.error(err);
+                    this.$router.push("/")
+                }).then((err)=>{
+                    console.log(err);
                 })
             }
         }

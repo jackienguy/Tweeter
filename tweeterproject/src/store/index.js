@@ -7,14 +7,15 @@ export default new Vuex.Store({
   state: {
     // Login state
     isLoggedin: true,
+  
   },
   mutations: {
   },
   actions: {
   },
   getters: {
-    // autehticated: function(state){
-    //   return state.isLoggedin
-    // }
+    autehticated: function(state){
+      return state.isLoggedin
+    }
   }
 })

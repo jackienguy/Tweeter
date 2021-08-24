@@ -2,33 +2,53 @@
     <div>
     <!-- Vuetify Form for Signin -->
         <v-form>
-            <v-card  elevation="12" outlined shaped tile>
-                <v-toolbar dark color="blue">
-                    <v-toolbar-title>Login to Tweeter</v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                    <v-text-field
-                        v-model="email"
-                        :error-messages="emailErrors"
-                        label="E-mail"
-                        required
-                        @input="$v.email.$touch()"
-                        @blur="$v.email.$touch()"
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="password"
-                        :error-messages="passwordErrors"
-                        label="Password"
-                        type="password"
-                        required
-                        @input="$v.password.$touch()"
-                        @blur="$v.password.$touch()"
-                    ></v-text-field>
-                </v-card-text>
-                <v-btn class="mr-4" @click="login">Login</v-btn>
-                <p> - OR -</p>
-                <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
-            </v-card>
+             <v-row>
+                <v-col
+                    cols="12"
+                    md="6"
+                    >
+                    <v-card  elevation="12" outlined shaped tile>
+                        <v-toolbar dark color="blue">
+                            <v-toolbar-title>Login to Tweeter</v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="8"
+                                >
+                                    <v-text-field
+                                        v-model="email"
+                                        :error-messages="emailErrors"
+                                        label="E-mail"
+                                        required
+                                        @input="$v.email.$touch()"
+                                        @blur="$v.email.$touch()"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    md="8"
+                                >
+                                    <v-text-field
+                                        v-model="password"
+                                        :error-messages="passwordErrors"
+                                        label="Password"
+                                        type="password"
+                                        required
+                                        @input="$v.password.$touch()"
+                                        @blur="$v.password.$touch()"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                        <v-btn class="mr-4" @click="login">Login</v-btn>
+                        <p id="signupMessage">Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
+                        </v-card>
+                </v-col>
+            </v-row>
         </v-form>
     </div>
 </template>
@@ -83,8 +103,8 @@ import { required, email } from 'vuelidate/lib/validators';
                         "Content-Type": "application/json"
                     },
                     data: {
-                        "email": "CindyLou@suess.com",
-                        "password": "IStoleChristmas"
+                        "email": "email",
+                        "password": "password"
                     }
                 }).then((response) => {
                     cookies.set ('loginToken', response.data.token);
@@ -99,5 +119,5 @@ import { required, email } from 'vuelidate/lib/validators';
 </script>
 
 <style lang="scss" scoped>
-
+    
 </style>

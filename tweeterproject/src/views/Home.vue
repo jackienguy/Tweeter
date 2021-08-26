@@ -1,35 +1,30 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
+   <template>
+  <div>
+   <p>This is the home page</p>
+  </div>
+</template>
 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import axios from 'axios';
-
-export default {
-  name: 'Home',
-  methods: {
-    printKey() {
-      console.log(process.env.VUE_APP_API_KEY);
-       console.log("this worked");
+  export default {
+    data: () => ({
+      activePicker: null,
+      date: null,
+      menu: false,
+    }),
+    watch: {
+      menu (val) {
+        val && setTimeout(() => (this.activePicker = 'YEAR'))
+      },
     },
-    makeReq () {
-      axios.request ({
-      url: "https://tweeterest.ml/api/users",
-      method: "GET",
-      headers: {
-        'X-Api-Key': process.env.VUE_APP_API_KEY
-      }, 
-    }).then((response) =>{
-      console.log(response);
-    }).catch((err)=>{
-      console.error(err);
-    })
+    methods: {
+      save (date) {
+        this.$refs.menu.save(date)
+      },
+    },
   }
-}
-}
 </script>
-    

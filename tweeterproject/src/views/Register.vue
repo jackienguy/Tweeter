@@ -6,21 +6,14 @@
         </v-toolbar>
         <v-card-text>
             <v-text-field
-                v-model="name"
+                v-model="username"
                 :error-messages="nameErrors"
-                label="Name"
+                label="Username"
+                :counter="20"
                 required
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
+                @input="$v.username.$touch()"
+                @blur="$v.username.$touch()"
             ></v-text-field>
-            <!-- <v-text-field
-                v-model="name"
-                :error-messages="nameErrors"
-                label="Last Name"
-                required
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
-            ></v-text-field> -->
             <v-text-field
                 v-model="email"
                 :error-messages="emailErrors"
@@ -29,15 +22,6 @@
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
             ></v-text-field>
-            <!-- <v-text-field
-                v-model="name"
-                :error-messages="nameErrors"
-                label="Username"
-                :counter="10"
-                required
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
-            ></v-text-field> -->
             <v-text-field
                 v-model="password"
                 :error-messages="passwordErrors"
@@ -48,6 +32,24 @@
                 @input="$v.password.$touch()"
                 @blur="$v.password.$touch()"
             ></v-text-field>
+            <v-text-field
+                v-model="bio"
+                :error-messages="bioErrors"
+                label="Bio"
+                :counter="200"
+                required
+                @input="$v.bio.$touch()"
+                @blur="$v.bio.$touch()"
+            ></v-text-field>
+            <v-text-field
+                v-model="birthdate"
+                :error-messages="birthdateErrors"
+                label="Birthday"
+                required
+                @input="$v.birthdate.$touch()"
+                @blur="$v.birthdate.$touch()"
+            ></v-text-field>
+
             <!-- <v-checkbox
                 v-model="checkbox"
                 :error-messages="checkboxErrors"
@@ -72,22 +74,26 @@
   export default {
     name: "Register",
     mixins: [validationMixin],
+    
 
     validations: {
-      name: { required, maxLength: maxLength(10) },
+      username: { required, maxLength: maxLength(20) },
       email: { required, email },
       password:  { required },
+      bio: { required, maxLength: maxLength(200) },
+      birthdate: {required}
     //   checkbox: {
     //     checked (val) {
     //       return val
     //     },
       
     },
-
     data: () => ({
-      name: '',
+      username: '',
       email: '',
       password: '',
+      bio: '',
+      birthdate: ''
     //   checkbox: false,
     }),
 
@@ -106,9 +112,9 @@
       },
       nameErrors () {
         const errors = []
-        if (!this.$v.name.$dirty) return errors
-        !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
-        !this.$v.name.required && errors.push('Name is required.')
+        if (!this.$v.username.$dirty) return errors
+        !this.$v.username.maxLength && errors.push('Name must be at most 10 characters long')
+        !this.$v.username.required && errors.push('Name is required.')
         return errors
       },
       emailErrors () {
@@ -118,8 +124,20 @@
         !this.$v.email.required && errors.push('E-mail is required')
         return errors
       },
+      bioErrors () {
+        const errors = []
+        if (!this.$v.bio.$dirty) return errors
+        !this.$v.bio.maxLength && errors.push('Bio is at most 100 characters long')
+        !this.$v.bio.required && errors.push('Bio is required.')
+        return errors
+      },
+      birthdateErrors () {
+        const errors = []
+        if (!this.$v.birthdate.$dirty) return errors
+        !this.$v.birthdate.required && errors.push('Name is required.')
+        return errors
+      }
     },
-
     methods: {
       submitSignup () {
         axios.request({
@@ -131,25 +149,27 @@
             },
             data: {
                 // use this to reference the data properties with v-models created above 
-                name: this.name,
+                username: this.username,
                 email: this.email,
                 password: this.password,
-                // "username": "username",
-                // "bio": "",
-                // "imageUrl": "",
-                // "bannerUrl": ""
+                bio: this.bio,
+                birthdate: "2000-09-02"
             }
         }).then((response) => {
+            console.log(response);
+            console.log("You successfully created an account");
             cookies.set ('loginToken', response.data.token);
             console.log(response.data.token);
-            console.log("You successfully created an account");
-            this.$router.push("/")
-        }).then((err)=>{
-            console.log(err);
+            this.$router.push("/");
+        }).catch((err)=>{
+            console.log(err.request);
+            console.log(err.response);
         })
-      }
+      },
+     
     },
   }
+  
 </script>
 
 <style lang="scss" scoped>

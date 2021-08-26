@@ -6,7 +6,8 @@
         <router-link to="/Profile">Profile</router-link> |
         <router-link to="/Feed">Feed</router-link> |
         <router-link to="/Discovery">Discovery</router-link> |
-      <router-link to="/Register">Sign Up</router-link>
+        <router-link to="/Register">Sign Up</router-link>
+        <router-link to="/EditProfile">Edit Profile</router-link>
       </div>
     <router-view/>
   </div>

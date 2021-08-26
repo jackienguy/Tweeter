@@ -45,7 +45,8 @@
                             </v-row>
                         </v-card-text>
                         <v-btn class="mr-4" @click="login">Login</v-btn>
-                        <p id="signupMessage">Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
+                        <v-spacer></v-spacer>
+                        <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
                         </v-card>
                 </v-col>
             </v-row>
@@ -103,8 +104,8 @@ import { required, email } from 'vuelidate/lib/validators';
                         "Content-Type": "application/json"
                     },
                     data: {
-                        "email": "email",
-                        "password": "password"
+                        email: this.email,
+                        password: this.password
                     }
                 }).then((response) => {
                     cookies.set ('loginToken', response.data.token);

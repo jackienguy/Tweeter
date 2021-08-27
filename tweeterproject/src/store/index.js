@@ -5,10 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    username: '',
-    email: '',
-    bio: '',
-    birthdate: ''
+   user: [
+     {
+      userId: "",
+      email: "",
+      username: "",
+      bio: "",
+      birthdate: "",
+     }
+   ]
   },
   mutations: {
     updateUsername: function(state, newUsername){
@@ -22,6 +27,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    
+    authUser(state) {
+      return state.user
+    }
   }
 })

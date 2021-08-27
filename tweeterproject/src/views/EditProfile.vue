@@ -100,20 +100,6 @@ import axios from 'axios';
       }
     },
     methods: {
-        getUserInfo() {
-            axios.request({
-                url: "https://tweeterest.ml/api/users",
-                method: "GET",
-                headers: {
-                    'X-Api-Key': process.env.VUE_APP_API_KEY,
-                },
-            }).then((response)=> {
-                cookies.get('loginToken'),
-                console.log("got the user info"); 
-            }).catch((err)=> {
-                console.error(err);
-            })
-        },
         updateProfile() {
             axios.request({
                 url: "https://tweeterest.ml/api/users",
@@ -127,11 +113,12 @@ import axios from 'axios';
                 username: this.username,
                 email: this.email,
                 bio: this.bio,
-                birthdate: "2000-09-02"
+                birthdate: this.birthdate
                 },
             }).then((response)=> {
                 cookies.get('loginToken'),
-                console.log("got the user info"); 
+                console.log("update success"); 
+                console.log(response);
             }).catch((err)=> {
                 console.error(err);
             })

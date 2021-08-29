@@ -15,7 +15,7 @@
           <v-list-item link>
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-                {{username}}
+                <!-- {{this.data.username}} -->
               </v-list-item-title>
               <v-list-item-subtitle>Placeholder for email</v-list-item-subtitle>
             </v-list-item-content>
@@ -71,10 +71,12 @@ import UserTweets from "../components/UserTweets.vue"
     components: {
       UserTweets
     },
-    params: {
-      userId: "1171",
-      bio: "",
-      username:"Hulk"
+    data () {
+      return {
+        userId: "",
+        bio: '',
+        username: 'Hulk'
+      }
     },
     created (){
       this.getUserData()
@@ -90,10 +92,15 @@ import UserTweets from "../components/UserTweets.vue"
               headers: {
                   'X-Api-Key': process.env.VUE_APP_API_KEY,
               },
+              params: {
+                  userId: "1229",
+                  bio: "",
+                  username:"Hulk"
+              }
           }).then((response)=> {
               cookies.get('loginToken'),
               console.log("got the user info"); 
-              console.log(response.data[2]);
+              console.log(response.data[0]);
               console.log(response);
           }).catch((err)=> {
               console.error(err);

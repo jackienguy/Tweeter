@@ -58,7 +58,7 @@
       elevation="2"
     ></v-card>
     <div>
-      <UserTweets/>
+      <PostTweets/>
     </div>
   </div>
 </template>
@@ -66,19 +66,20 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import UserTweets from "../components/UserTweets.vue"
+import PostTweets from "../components/PostTweets.vue"
 
   export default {
     //
     components: {
-      UserTweets
+      PostTweets
     },
     data () {
       return {
         userId: '',
         bio: '',
         username: '',
-        email: ''
+        email: '',
+        password: '',
       }
     },
     created (){
@@ -98,7 +99,7 @@ import UserTweets from "../components/UserTweets.vue"
               params: {
                   userId: "1229",
                   bio: this.bio,
-                  username: "response.data[0].username"
+                  username: this.username
               }
           }).then((response)=> {
               cookies.get('loginToken'),
@@ -106,7 +107,8 @@ import UserTweets from "../components/UserTweets.vue"
               console.log(response);
               this.username = response.data[0].username;
               this.email = response.data[0].email;
-              this.bio = response.data[0].bio
+              this.bio = response.data[0].bio;
+
           }).catch((err)=> {
               console.error(err);
           })

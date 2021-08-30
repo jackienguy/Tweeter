@@ -109,7 +109,7 @@ import axios from 'axios';
                      "Content-Type": "application/json"
                 },
                 data: {
-                  loginToken: "EYpmDXwRrR1HqYzzXHuEKoNGZrbJDFrrdXclii3wmtsfysoSyH",
+                  loginToken: cookies.get('loginToken'),
                   bio: this.bio,
                   birthdate: this.birthdate,
                   email: this.email,

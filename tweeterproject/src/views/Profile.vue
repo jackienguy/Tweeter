@@ -8,16 +8,18 @@
         <v-list>
           <v-list-item class="px-2">
             <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+              <v-img src='https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'></v-img>
             </v-list-item-avatar>
             <v-btn @click="editProfileBtn">Edit</v-btn>
           </v-list-item>
           <v-list-item link>
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-                <!-- {{this.data.username}} -->
+                <b>{{this.username}}</b> 
               </v-list-item-title>
-              <v-list-item-subtitle>Placeholder for email</v-list-item-subtitle>
+              <v-list-item-subtitle>{{this.email}}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{this.bio}}</v-list-item-subtitle>
+
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -73,9 +75,10 @@ import UserTweets from "../components/UserTweets.vue"
     },
     data () {
       return {
-        userId: "",
+        userId: '',
         bio: '',
-        username: 'Hulk'
+        username: '',
+        email: ''
       }
     },
     created (){
@@ -94,14 +97,16 @@ import UserTweets from "../components/UserTweets.vue"
               },
               params: {
                   userId: "1229",
-                  bio: "",
-                  username:"Hulk"
+                  bio: this.bio,
+                  username: "response.data[0].username"
               }
           }).then((response)=> {
               cookies.get('loginToken'),
               console.log("got the user info"); 
-              console.log(response.data[0]);
               console.log(response);
+              this.username = response.data[0].username;
+              this.email = response.data[0].email;
+              this.bio = response.data[0].bio
           }).catch((err)=> {
               console.error(err);
           })

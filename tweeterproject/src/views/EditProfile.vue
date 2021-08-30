@@ -61,13 +61,13 @@ import axios from 'axios';
       username: { required, maxLength: maxLength(20) },
       email: { required, email },
       bio: { required, maxLength: maxLength(200) },
-      birthdate: {required}
+      birthdate: {required},
     },
     data: () => ({
       username: '',
       email: '',
       bio: '',
-      birthdate: ''
+      birthdate: '',
     }),
 
     computed: {
@@ -109,16 +109,17 @@ import axios from 'axios';
                      "Content-Type": "application/json"
                 },
                 data: {
-                // use this to reference the data properties with v-models created above 
-                username: this.username,
-                email: this.email,
-                bio: this.bio,
-                birthdate: this.birthdate
+                  loginToken: "EYpmDXwRrR1HqYzzXHuEKoNGZrbJDFrrdXclii3wmtsfysoSyH",
+                  bio: this.bio,
+                  birthdate: this.birthdate,
+                  email: this.email,
+                  username: this.username,
                 },
             }).then((response)=> {
                 cookies.get('loginToken'),
                 console.log("update success"); 
                 console.log(response);
+                this.$router.push("/Profile")
             }).catch((err)=> {
                 console.error(err);
             })

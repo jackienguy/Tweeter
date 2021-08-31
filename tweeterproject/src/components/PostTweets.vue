@@ -13,7 +13,8 @@
         <v-btn @click="postTweet">Post</v-btn>
       </v-container>
       <v-divider></v-divider> 
-      <UserTweets/>
+      <UserTweets :tweets="tweets"/>
+
     </div>
 </template>
 
@@ -26,6 +27,21 @@ import UserTweets from './UserTweets.vue';
       name: "PostTweets",
       components: {
         UserTweets
+      },
+      data () {
+        return {
+          content: '',
+          tweets: [
+            { header: 'Tweets' },
+            {
+            imageUrl: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',  
+            username: "",
+            tweet: '',
+            createdAt: '',
+            },
+            { divider: true, inset: true },
+          ] 
+        }
       },
       methods: {
           postTweet () {

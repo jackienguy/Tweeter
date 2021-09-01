@@ -1,62 +1,31 @@
 <template>
     <div>
-        <!-- User Posts -->
-      <v-card
-      max-width="450"
-      class="mx-auto"
-      >
-        <v-list three-line>
-          <div v-for="(tweet, index) in tweets" :key="index"> 
-            <v-subheader
-                v-if="tweet.header"
-                :key="tweet.header"
-                v-text="tweet.header"
-            ></v-subheader>
-
-            <v-divider
-                v-else-if="tweets.divider"
-                :key="index"
-                :inset="tweets.inset"
-            ></v-divider>
-
-            <v-list-item
-                v-else
-                :key="tweets.username"
-            >
-                <v-list-item-avatar>
-                <v-img :src="tweets.imageUrl"></v-img>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                    <v-list-item-title v-html="tweets.username">{{tweets.username}}</v-list-item-title>
-                    <v-list-item-subtitle v-html="tweets.tweets">{{tweets.tweets}}</v-list-item-subtitle>
-                    <v-list-item-subtitle v-html="tweets.createdAt">{{tweets.createdAt}}</v-list-item-subtitle>
-                {{tweet}}
-                </v-list-item-content>
-            </v-list-item>
-          </div>
-        </v-list>
-        <TweetReaction/>
-      </v-card>
+        <TweetBody 
+        v-for="tweet in tweets" 
+        :key="tweet.tweetId" 
+        :content="tweet.content" 
+        :createdAt="tweet.createdAt" 
+        :username="tweet.username"
+        :tweetId="tweet.tweetId"
+        :userId="tweet.userId"
+        />
     </div>
 </template>
 
 <script>
-
 import axios from 'axios';
-import TweetReaction from './TweetReaction.vue'
+import TweetBody from "./TweetBody.vue"
 
     export default {
         name: "UserTweets",
-        components: {
-            TweetReaction
+        components: { 
+            TweetBody,
         },
-        props: {
-          tweets: {
-            type: Array
-          }
+        data (){
+            return{
+                tweets: []
+            }
         },
-      
         mounted () {
             this.getTweets()
         },
@@ -69,19 +38,17 @@ import TweetReaction from './TweetReaction.vue'
                         'X-Api-Key': process.env.VUE_APP_API_KEY
                     },
                     params: {
-                        userId: "1229",
+                        userId: this.tweets.userId,
                     }
                 }).then((response)=>{
-                    console.log(response);
-                    this.tweets.tweet = response.data.content;
-                    this.tweets.username = response.data.username;
-                    this.tweets.createdAt = response.data.createdAt
+                    console.log(response.data);
+                    this.tweets = response.data
                     console.log("getting content");
                 }).catch((err)=>{
                     console.error(err);
                 })
             },
-        
+            
       }
     
 }

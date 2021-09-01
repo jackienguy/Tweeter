@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-chip-group>Trending</v-chip-group>
+        <v-chip-group>Trend for you</v-chip-group>
     </div>
 </template>
 

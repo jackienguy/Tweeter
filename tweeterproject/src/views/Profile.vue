@@ -58,7 +58,8 @@
       elevation="2"
     ></v-card>
     <div>
-      <PostTweets/>
+      <newTweets/>
+      <CommentReplyBox/>
     </div>
   </div>
 </template>
@@ -66,12 +67,14 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import PostTweets from "../components/PostTweets.vue"
+import newTweets from "../components/newTweets.vue"
+import CommentReplyBox from "../components/CommentReplyBox.vue"
 
   export default {
     //
     components: {
-      PostTweets
+      newTweets,
+      CommentReplyBox
     },
     data () {
       return {

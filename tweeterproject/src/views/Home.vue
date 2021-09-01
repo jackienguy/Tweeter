@@ -41,12 +41,18 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
+      <PostTweets/>
   </div>
 </template>  
  
 
 <script>
+import PostTweets from '../components/newTweets.vue';
+
   export default {
+    components: {
+      PostTweets
+    },
     data () {
       return {
         items: [

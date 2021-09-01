@@ -15,6 +15,13 @@
                 @blur="$v.username.$touch()"
             ></v-text-field>
             <v-text-field
+                v-model="imageUrl"
+                :error-messages="imageUrlErrors"
+                label="Profile pisture URL"
+                @input="$v.imageUrl.$touch()"
+                @blur="$v.imageUrl.$touch()"
+            ></v-text-field>
+            <v-text-field
                 v-model="email"
                 :error-messages="emailErrors"
                 label="E-mail"
@@ -50,15 +57,6 @@
                 @blur="$v.birthdate.$touch()"
             ></v-text-field>
 
-            <!-- <v-checkbox
-                v-model="checkbox"
-                :error-messages="checkboxErrors"
-                label="Do you agree?"
-                required
-                @change="$v.checkbox.$touch()"
-                @blur="$v.checkbox.$touch()"
-            ></v-checkbox> -->
-
             <v-btn class="mr-4" @click="submitSignup">Create Account</v-btn>
         </v-card-text>
     </v-card>
@@ -81,19 +79,15 @@
       email: { required, email },
       password:  { required },
       bio: { required, maxLength: maxLength(200) },
-      birthdate: {required}
-    //   checkbox: {
-    //     checked (val) {
-    //       return val
-    //     },
-      
+      birthdate: {required}, 
     },
     data: () => ({
       username: '',
       email: '',
       password: '',
       bio: '',
-      birthdate: ''
+      birthdate: '',
+      imageUrl: ''
     //   checkbox: false,
     }),
 

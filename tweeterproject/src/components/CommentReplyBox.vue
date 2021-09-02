@@ -1,19 +1,20 @@
 <template>
-  <div>
-        <!-- Comment reply input box -->
+  <div v-if="isDisplayBox">
+        <!-- Tweet comment input box -->
         <v-container fluid>
           <v-list-item-avatar>
                   <v-img src="https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"></v-img>
                   </v-list-item-avatar>
-          <v-textarea
+          <v-textarea 
               v-model="content" 
-              placeholder="Reply"
+              placeholder="Add a comment"
               counter: maxlength="200"
           ></v-textarea>
           <v-btn @click="replyToTweet">Reply</v-btn>
         </v-container>
         <v-divider></v-divider> 
-        <CommentsOnTweets/>
+        {{tweetId}}
+        
     </div>
 </template>
 
@@ -21,26 +22,23 @@
 
 import axios from 'axios';
 import cookies from 'vue-cookies';
-import CommentsOnTweets from './CommentsOnTweets.vue';
 
 
     export default {
         name: "CommentReplyBox",
-        components: {
-            CommentsOnTweets,
+        props: {
+            tweetId: Number,
+            isDisplayBox: Boolean
         },
+    
         data(){
           return {
-            commentId: '',
-            tweetId: '',
-            userId: '',
-            username: '',
             content: '',
-            createdAt: ''
           }
         },
         methods: {
           replyToTweet () {
+             
               axios.request({
                   url: "https://tweeterest.ml/api/comments",
                   method: "POST",
@@ -50,16 +48,19 @@ import CommentsOnTweets from './CommentsOnTweets.vue';
                   },
                   data: {
                       loginToken: cookies.get('loginToken'),
-                      tweetId: 2008,
+                      tweetId: this.tweetId,
                       content: this.content
                   }
               }).then((response)=>{
                   console.log(response);
                   console.log("You commented on a post");
+                  this.$emit('replyToTweet', this.content);
+                  this.content = '';
               }).catch((err)=>{
-                  console.error(err);
+                  console.error(err.response);
               })
-          }
+            },
+           
       }
   }
   

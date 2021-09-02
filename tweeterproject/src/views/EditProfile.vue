@@ -15,6 +15,13 @@
                 @blur="$v.username.$touch()"
             ></v-text-field>
             <v-text-field
+                v-model="imageUrl"
+                :error-messages="imageUrlErrors"
+                label="Profile pisture URL"
+                @input="$v.imageUrl.$touch()"
+                @blur="$v.imageUrl.$touch()"
+            ></v-text-field>
+            <v-text-field
                 v-model="email"
                 :error-messages="emailErrors"
                 label="E-mail"
@@ -64,10 +71,13 @@ import axios from 'axios';
       birthdate: {required},
     },
     data: () => ({
+      userId: '',
       username: '',
       email: '',
       bio: '',
       birthdate: '',
+      imageUrl: '',
+      bannerUrl: '',
     }),
 
     computed: {

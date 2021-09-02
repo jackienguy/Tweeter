@@ -1,18 +1,35 @@
-
 <template>
-  <div class="ma-12 pa-12">
-    <v-card>
-      <v-navigation-drawer
-        permanent
+  <v-app id="inspire">
+    <v-system-bar app>
+      <v-spacer></v-spacer>
+
+      <v-icon>mdi-square</v-icon>
+
+      <v-icon>mdi-circle</v-icon>
+
+      <v-icon>mdi-triangle</v-icon>
+    </v-system-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-sheet
+        color="grey lighten-4"
+        class="pa-4"
+        height="250"
       >
-        <v-list>
-          <v-list-item class="px-2">
-            <v-list-item-avatar>
-              <v-img src='https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'></v-img>
-            </v-list-item-avatar>
-            <v-btn @click="editProfileBtn">Edit</v-btn>
-          </v-list-item>
-          <v-list-item link>
+        <v-avatar
+          class="mb-4"
+          color="grey darken-1"
+          size="64"
+        >
+          <v-img src='https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'></v-img>
+        </v-avatar>
+
+        <v-btn @click="editProfileBtn">Edit</v-btn>
+
+        <v-list-item link>
             <v-list-item-content>
               <v-list-item-title class="text-h6">
                 <b>{{this.username}}</b> 
@@ -22,62 +39,55 @@
 
             </v-list-item-content>
           </v-list-item>
-        </v-list>
+      </v-sheet>
 
-        <v-divider></v-divider>
+      <v-divider></v-divider>
 
-        <v-list
-          nav
-          dense
+      <v-list>
+        <v-list-item
+          v-for="[icon, text] in links"
+          :key="icon"
+          link
         >
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-folder</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>My Tweets</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-account-multiple</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Discover</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-star</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title> <v-btn @click="logOut">Log Out</v-btn></v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-    </v-card>
-    <v-card
-      elevation="2"
-    ></v-card>
-     <v-card
-      elevation="2"
-    ></v-card>
-    <div>
+          <v-list-item-icon>
+            <v-icon>{{ icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
       <newTweets/>
-      <CommentReplyBox/>
-    </div>
-  </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
 import newTweets from "../components/newTweets.vue"
-import CommentReplyBox from "../components/CommentReplyBox.vue"
+// import CommentReplyBox from "../components/CommentReplyBox.vue"
 
   export default {
     //
     components: {
       newTweets,
-      CommentReplyBox
+      // CommentReplyBox
     },
     data () {
       return {
+        cards: ['Today', 'Yesterday'],
+        drawer: null,
+        links: [
+          ['mdi-inbox-arrow-down', 'Home'],
+          ['mdi-send', 'Discovery'],
+          ['mdi-delete', 'Delete Profile'],
+          ['mdi-alert-octagon', 'Logout'],
+        ],
         userId: '',
         bio: '',
         username: '',
@@ -106,6 +116,7 @@ import CommentReplyBox from "../components/CommentReplyBox.vue"
               }
           }).then((response)=> {
               cookies.get('loginToken'),
+              cookies.get('username')
               console.log("got the user info"); 
               console.log(response);
               this.username = response.data[0].username;
@@ -116,7 +127,12 @@ import CommentReplyBox from "../components/CommentReplyBox.vue"
               console.error(err);
           })
         },
-        logOut(){
+        // log out
+        logout (){
+          cookies.remove.loginToken
+        },
+        // delete profile
+        deleteProfile(){
           axios.request({
               url: "https://tweeterest.ml/api/users",
               method: "DELETE",

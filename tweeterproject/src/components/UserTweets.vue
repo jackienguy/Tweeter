@@ -14,7 +14,7 @@
 
 <script>
 import axios from 'axios';
-import TweetBody from "./TweetBody.vue"
+import TweetBody from "./TweetBody.vue";
 
     export default {
         name: "UserTweets",
@@ -23,32 +23,33 @@ import TweetBody from "./TweetBody.vue"
         },
         data (){
             return{
-                tweets: []
+                tweets: [],
             }
         },
         mounted () {
             this.getTweets()
         },
-            methods: {
-                getTweets () {
-                    axios.request({
-                    url: "https://tweeterest.ml/api/tweets",
-                    method: "GET",
-                    headers: {
-                        'X-Api-Key': process.env.VUE_APP_API_KEY
-                    },
-                    params: {
-                        userId: this.tweets.userId,
-                    }
-                }).then((response)=>{
-                    console.log(response.data);
-                    this.tweets = response.data
-                    console.log("getting content");
-                }).catch((err)=>{
-                    console.error(err);
-                })
-            },
-            
+        
+        methods: {
+            getTweets () {
+                axios.request({
+                url: "https://tweeterest.ml/api/tweets",
+                method: "GET",
+                headers: {
+                    'X-Api-Key': process.env.VUE_APP_API_KEY
+                },
+                params: {
+                    userId: this.tweets.userId,
+                }
+            }).then((response)=>{
+                console.log(response.data);
+                this.tweets = response.data
+                console.log("getting content");
+            }).catch((err)=>{
+                console.error(err);
+            })
+        },
+       
       }
     
 }

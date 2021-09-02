@@ -29,8 +29,13 @@ import UserTweets from './UserTweets.vue';
       },
       data () {
         return {
+          cards: ['Today', 'Yesterday'],
           content: '',
-          imageUrl: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',  
+          userImageUrl: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', 
+          userId:'',
+          username: '',
+          createdAt: '',
+          imageUrl: ''
         }
       },
       methods: {
@@ -49,6 +54,7 @@ import UserTweets from './UserTweets.vue';
               }).then((response)=>{
                   console.log(response.data.content);
                   console.log('you posted');
+                  this.content = ''
               }).catch((err)=>{
                   console.error(err);
               })

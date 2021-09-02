@@ -82,22 +82,18 @@
       birthdate: {required}, 
     },
     data: () => ({
+      userId: '',
       username: '',
       email: '',
       password: '',
       bio: '',
       birthdate: '',
-      imageUrl: ''
-    //   checkbox: false,
+      imageUrl: '',
+      loginToken: '',
+      bannerUrl:''
     }),
 
     computed: {
-      checkboxErrors () {
-        const errors = []
-        if (!this.$v.checkbox.$dirty) return errors
-        !this.$v.checkbox.checked && errors.push('You must agree to continue!')
-        return errors
-      },
       passwordErrors () {
         const errors = []
         if (!this.$v.password.$dirty) return errors
@@ -153,6 +149,7 @@
             console.log(response);
             console.log("You successfully created an account");
             cookies.set ('loginToken', response.data.token);
+            cookies.set ('username', response.data.username);
             console.log(response.data.token);
             this.$router.push("/");
         }).catch((err)=>{

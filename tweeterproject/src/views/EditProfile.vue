@@ -16,10 +16,10 @@
             ></v-text-field>
             <v-text-field
                 v-model="imageUrl"
-                :error-messages="imageUrlErrors"
-                label="Profile pisture URL"
+                label="imageUrl"
+                required
                 @input="$v.imageUrl.$touch()"
-                @blur="$v.imageUrl.$touch()"
+                @blur="$v.username.$touch()"
             ></v-text-field>
             <v-text-field
                 v-model="email"
@@ -124,6 +124,7 @@ import axios from 'axios';
                   birthdate: this.birthdate,
                   email: this.email,
                   username: this.username,
+                  imageUrl:this.imageUrl
                 },
             }).then((response)=> {
                 cookies.get('loginToken'),

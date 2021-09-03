@@ -17,7 +17,7 @@
             <v-text-field
                 v-model="imageUrl"
                 :error-messages="imageUrlErrors"
-                label="Profile pisture URL"
+                label="Profile piuture URL"
                 @input="$v.imageUrl.$touch()"
                 @blur="$v.imageUrl.$touch()"
             ></v-text-field>
@@ -51,7 +51,7 @@
             <v-text-field
                 v-model="birthdate"
                 :error-messages="birthdateErrors"
-                label="Birthday"
+                label="Birthday (YYYY-MM-DD)"
                 required
                 @input="$v.birthdate.$touch()"
                 @blur="$v.birthdate.$touch()"
@@ -143,7 +143,8 @@
                 email: this.email,
                 password: this.password,
                 bio: this.bio,
-                birthdate: "2000-09-02"
+                birthdate: this.birthdate,
+                imageUrl: this.imageUrl
             }
         }).then((response) => {
             console.log(response);

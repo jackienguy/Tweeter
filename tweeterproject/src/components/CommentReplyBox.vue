@@ -1,20 +1,27 @@
 <template>
   <div v-if="isExpanded" >
-        <!-- Tweet comment input box -->
+        <!-- Comment input box to response to tweets -->
         <v-container fluid>
-          <v-list-item-avatar>
-                  <v-img src="https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"></v-img>
-                  </v-list-item-avatar>
-          <v-textarea 
-              v-model="content" 
-              placeholder="Add a comment"
-              counter: maxlength="200"
-          ></v-textarea>
-          <v-btn @click="replyToTweet">Reply</v-btn>
-        </v-container>
-        <v-divider></v-divider> 
+            <v-list-item-avatar>
+                <v-img src="https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"></v-img>
+            </v-list-item-avatar>
+
+            <v-row>
+                <v-col
+                cols="15"
+                md="8"
+                >
+                <v-textarea 
+                    v-model="content" 
+                    placeholder="Leave a comment"
+                    counter: maxlength="200"
+                    background-color="grey lighten-1"
+                ></v-textarea>
+                </v-col>
+            </v-row>
+            <v-btn @click="replyToTweet">Reply</v-btn>
+        </v-container> 
         {{tweetId}}
-        
     </div>
 </template>
 
@@ -34,12 +41,10 @@ import cookies from 'vue-cookies';
         data(){
           return {
             content: '',
-        
           }
         },
         methods: {
           replyToTweet () {
-             
               axios.request({
                   url: "https://tweeterest.ml/api/comments",
                   method: "POST",

@@ -38,7 +38,7 @@
               color="blue darken-2"
             >
                 fas fa-kiwi-bird 
-            </v-icon> Kweeter
+            </v-icon> Kwitter
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>

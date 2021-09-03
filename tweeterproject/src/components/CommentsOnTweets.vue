@@ -1,6 +1,12 @@
 <template>
     <div v-if="isExpanded">
-        <CommentBody2
+        <CommentReplyBox 
+         :tweetId="tweetId"
+         :isExpanded="isExpanded"
+         @replyToTweet="getCommentOnTweet"
+         />
+
+        <CommentBody
         v-for="comment in comments" 
         :key="comment.tweetId"
         :commentId="comment.commentId"
@@ -10,25 +16,18 @@
         :content="comment.content"
         :createdAt="comment.createdAt"
         />
-
-        {{tweetId}}
-        <CommentReplyBox 
-         :tweetId="tweetId"
-         :isExpanded="isExpanded"
-         @replyToTweet="getCommentOnTweet"
-         />
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-import CommentBody2 from './CommentBody2.vue'
+import CommentBody from './CommentBody.vue'
 import CommentReplyBox from './CommentReplyBox.vue'
 
     export default {
         name: "CommentsOnTweets",
         components: {
-            CommentBody2,
+            CommentBody,
             CommentReplyBox
         },
         props: {
@@ -37,7 +36,7 @@ import CommentReplyBox from './CommentReplyBox.vue'
         },
         data(){
             return {
-                comments: []
+                comments: [],
             }
         },
         mounted(){

@@ -2,14 +2,14 @@
     <div>
     <!-- Vuetify Form for Signin -->
         <v-form>
-             <v-row>
+            <v-row>
                 <v-col
                     cols="12"
                     md="6"
                     >
                     <v-card  elevation="12" outlined shaped tile>
-                        <v-toolbar dark color="blue">
-                            <v-toolbar-title>Login to Tweeter</v-toolbar-title>
+                        <v-toolbar color="blue">
+                            <v-toolbar-title>Login to Kwitter</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
                             <v-row>
@@ -111,6 +111,7 @@ import { required, email } from 'vuelidate/lib/validators';
                     cookies.set ('loginToken', response.data.loginToken);
                     cookies.set('username', response.data.username)
                     console.log(response.data.loginToken);
+                    console.log(response);
                     this.$router.push("/Home")
                 }).then((err)=>{
                     console.log(err);

@@ -13,7 +13,7 @@
       >
         mdi-twitter
       </v-icon>
-      <span class="text-h6 font-weight-light">Kweeter</span>
+      <span class="text-h6 font-weight-light">Kwitter</span>
     </v-card-title>
 
     <v-card-text class="text-h5 font-weight-bold">
@@ -26,12 +26,13 @@
           <v-img
             class="elevation-6"
             alt=""
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+            :src="userImageUrl"
           ></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title>{{username}}</v-list-item-title>
+          <v-list-item-title>{{createdAt}}</v-list-item-title>
         </v-list-item-content>
 
         <v-row
@@ -55,7 +56,6 @@
             </v-btn>
 
             <v-btn
-            v-if="isLikedTweet"
             @click="likedTweet"
             class="likeClicked"
             text
@@ -68,9 +68,9 @@
                 far fa-thumbs-up
             </v-icon>
             </v-btn>
+            <LikesCounter/>
 
             <v-btn
-            v-else
             @click="unlikedTweet(tweetId)"
             class="unlikeClicked"
             text
@@ -81,6 +81,19 @@
             color="white darken-2"
             >
                 far fa-thumbs-up
+            </v-icon>
+            </v-btn>
+
+            <v-btn
+            class="ma-2"
+            text
+            icon
+            >
+            <v-icon
+            small
+            color="white darken-2"
+            >
+                  far fa-edit
             </v-icon>
             </v-btn>
 
@@ -112,10 +125,10 @@
 
     <v-divider></v-divider>
 
-    <!-- Reaction Buttons -->
+   
        
-        </v-card-actions>
-        </v-card>
+    </v-card-actions>
+    </v-card>
         <CommentsOnTweets
         :tweetId="tweetId"
         :isExpanded="isExpanded"
@@ -126,6 +139,7 @@
 <script>
 import axios from 'axios';
 import cookies from 'vue-cookies';
+import LikesCounter from './LikesCounter.vue'
 
 import CommentsOnTweets from "./CommentsOnTweets.vue";
 
@@ -133,7 +147,8 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
         //
         name: "TweetBody",
         components: {
-            CommentsOnTweets
+            CommentsOnTweets,
+            LikesCounter
         },
         props: {
             tweetId: Number,
@@ -146,8 +161,9 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
         },
         data () {
             return {
-                isLikedTweet: false,
+                // isLikedTweet: false,
                 isExpanded: false,
+                // numLikes: 0
             }  
         },
         methods: {
@@ -166,11 +182,12 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     }
                 }).then((response)=>{
                     console.log("You liked a tweet" +response);
-                    this.isLikedTweet = !this.isLikedTweet
+                    this.isLikedTweet = !this.isLikedTweet;
                
                 }).catch((err)=>{
                      console.error("Already liked the tweet" +err);
                 })
+                // this.numLikes += 1;
             },
             // unliking a tweet
             unlikedTweet () {

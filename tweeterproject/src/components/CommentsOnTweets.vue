@@ -1,7 +1,5 @@
 <template>
-    <div>
-       
-
+    <div v-if="isExpanded">
         <CommentBody2
         v-for="comment in comments" 
         :key="comment.tweetId"

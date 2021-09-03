@@ -110,7 +110,7 @@ import newTweets from "../components/newTweets.vue"
                   'X-Api-Key': process.env.VUE_APP_API_KEY,
               },
               params: {
-                  userId: "1229",
+                  userId: this.userId,
                   bio: this.bio,
                   username: this.username
               }

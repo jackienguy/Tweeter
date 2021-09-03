@@ -38,98 +38,88 @@
           align="center"
           justify="end"
         >
-          <v-icon class="mr-1">
-            mdi-heart
-          </v-icon>
-          <span class="subheading mr-2">256</span>
-          <span class="mr-1">·</span>
-          <v-icon class="mr-1">
-            mdi-share-variant
-          </v-icon>
-          <span class="subheading">45</span>
+         
+            <v-btn
+            @click="isExpanded = !isExpanded"
+            class="ma-2"
+            text
+            icon
+            >
+            <v-icon
+                
+                small
+                color="white darken-2"
+            >
+                far fa-comment-alt
+            </v-icon>
+            </v-btn>
+
+            <v-btn
+            v-if="isLikedTweet"
+            @click="likedTweet"
+            class="likeClicked"
+            text
+            icon
+            >
+            <v-icon
+            small
+            color="green darken-2"
+            >
+                far fa-thumbs-up
+            </v-icon>
+            </v-btn>
+
+            <v-btn
+            v-else
+            @click="unlikedTweet(tweetId)"
+            class="unlikeClicked"
+            text
+            icon
+            >
+            <v-icon
+            small
+            color="white darken-2"
+            >
+                far fa-thumbs-up
+            </v-icon>
+            </v-btn>
+
+            <v-btn
+            @click="deleteTweet"
+            class="ma-2"
+            text
+            icon
+            >
+            <v-icon
+            small
+            color="white darken-2"
+            >
+                far fa-trash-alt
+            </v-icon>
+            </v-btn>
+        
+            <v-btn
+            @click="isExpanded = !isExpanded"
+            class="ma-2"
+            outlined
+            fab
+            color="white"
+            >
+            <v-icon small>fas fa-caret-down</v-icon>
+            </v-btn>
         </v-row>
       </v-list-item>
 
     <v-divider></v-divider>
 
     <!-- Reaction Buttons -->
-        <div>
-            <v-row class="pa-md-4 mx-lg-auto" >
-                <v-btn
-                @click="isDisplayBox = !isDisplayBox"
-                class="ma-2"
-                text
-                icon
-                >
-                <v-icon
-                    
-                    small
-                    color="blue darken-2"
-                >
-                    far fa-comment-alt
-                </v-icon>
-                </v-btn>
-    
-                <v-btn
-                v-if="isLikedTweet"
-                @click="likedTweet(tweetId)"
-                class="likeClicked"
-                text
-                icon
-                >
-                <v-icon
-                small
-                color="green darken-2"
-                >
-                    far fa-thumbs-up
-                </v-icon>
-                </v-btn>
-
-                <v-btn
-                v-else
-                @click="unlikedTweet(tweetId)"
-                class="unlikeClicked"
-                text
-                icon
-                >
-                <v-icon
-                small
-                color="blue darken-2"
-                >
-                    far fa-thumbs-up
-                </v-icon>
-                </v-btn>
-
-                <v-btn
-                @click="deleteTweet()"
-                class="ma-2"
-                text
-                icon
-                >
-                <v-icon
-                small
-                color="blue darken-2"
-                >
-                    far fa-trash-alt
-                </v-icon>
-                </v-btn>
-            </v-row>
-        </div>
+       
         </v-card-actions>
         </v-card>
         <CommentsOnTweets
         :tweetId="tweetId"
-        :isDisplayBox="isDisplayBox"
+        :isExpanded="isExpanded"
         />
-        >
-            <v-btn
-            class="ma-2"
-            outlined
-            fab
-            color="teal"
-            >
-            <v-icon>fas fa-caret-down</v-icon>
-            </v-btn>
 </div>
 </template>
 
@@ -157,12 +147,12 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
         data () {
             return {
                 isLikedTweet: false,
-                isExpanded: false
+                isExpanded: false,
             }  
         },
         methods: {
         // Liking a tweet
-            likedTweet (Id) {
+            likedTweet () {
                 axios.request({
                     url: "https://tweeterest.ml/api/tweet-likes",
                     method: "POST",
@@ -172,7 +162,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     },
                     data: {
                         loginToken: cookies.get('loginToken'),
-                        tweetId: Id
+                        tweetId: this.tweetId
                     }
                 }).then((response)=>{
                     console.log("You liked a tweet" +response);
@@ -183,7 +173,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 })
             },
             // unliking a tweet
-            unlikedTweet (Id) {
+            unlikedTweet () {
                 axios.request({
                     url: "https://tweeterest.ml/api/tweet-likes",
                     method: "DELETE",
@@ -193,17 +183,16 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     },
                     data: {
                         loginToken: cookies.get('loginToken'),
-                        tweetId: Id
+                        tweetId: this.tweetId
                     }
                 }).then((response)=>{
                     console.log("unliked" +response);
-                    this.isLikedTweet = false
                 }).catch((err)=>{
                     console.error(err);
                 })
             },
             // Deleting a Tweet
-            deleteTweet (id) {
+            deleteTweet () {
                 axios.request ({
                     url: "https://tweeterest.ml/api/tweets",
                     method: "DELETE",
@@ -212,11 +201,10 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     },
                     data: {
                         loginToken: cookies.get('loginToken'),
-                        tweetId: id
+                        tweetId: this.tweetId
                     }
                 }).then((response)=> {
                     console.log("Tweet deleted"+response);
-                    this.$delete('tweetId', id)
                 }).catch((err)=>{
                     console.error(err);
                 })

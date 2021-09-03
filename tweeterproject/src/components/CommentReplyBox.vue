@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isDisplayBox">
+  <div v-if="isExpanded" >
         <!-- Tweet comment input box -->
         <v-container fluid>
           <v-list-item-avatar>
@@ -28,12 +28,13 @@ import cookies from 'vue-cookies';
         name: "CommentReplyBox",
         props: {
             tweetId: Number,
-            isDisplayBox: Boolean
+            isExpanded: Boolean
         },
     
         data(){
           return {
             content: '',
+        
           }
         },
         methods: {

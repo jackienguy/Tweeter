@@ -111,7 +111,6 @@ import { required, email } from 'vuelidate/lib/validators';
                     cookies.set ('loginToken', response.data.loginToken);
                     cookies.set('username', response.data.username)
                     console.log(response.data.loginToken);
-                    console.log("You are now logged in");
                     this.$router.push("/Home")
                 }).then((err)=>{
                     console.log(err);

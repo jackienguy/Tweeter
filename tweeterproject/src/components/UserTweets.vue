@@ -26,10 +26,9 @@ import TweetBody from "./TweetBody.vue";
                 tweets: [],
             }
         },
-        mounted () {
+         mounted () {
             this.getTweets()
         },
-        
         methods: {
             getTweets () {
                 axios.request({
@@ -49,6 +48,8 @@ import TweetBody from "./TweetBody.vue";
                 console.error(err);
             })
         },
+       
+        
        
       }
     

@@ -4,7 +4,7 @@
       class="mx-auto"
       color="caf0f8"
       dark
-      max-width="750"
+      width="60vw"
     >
       <v-card-title>
         <v-icon
@@ -26,8 +26,9 @@
             <v-img
               class="elevation-6"
               alt=""
-              :src="userImageUrl"
+              
             ></v-img>
+            <!-- :src="{{userImageUrl}}" -->
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -104,14 +105,14 @@ import cookies from 'vue-cookies';
          // Deleting a comment
           deleteComment () {
               axios.request ({
-                  url: "https://tweeterest.ml/api/tweets",
+                  url: "https://tweeterest.ml/api/comments",
                   method: "DELETE",
                   headers: {
                   'X-Api-Key': process.env.VUE_APP_API_KEY
                   },
                   data: {
                       loginToken: cookies.get('loginToken'),
-                      tweetId: this.tweetId
+                      commentId: this.commentId
                   }
               }).then((response)=> {
                     console.log(response);

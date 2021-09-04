@@ -4,7 +4,7 @@
     class="mx-auto"
     color="#26c6da"
     dark
-    max-width="800"
+    width="70vw"
   >
     <v-card-title>
       <v-icon
@@ -39,7 +39,8 @@
           align="center"
           justify="end"
         >
-         
+     <!--Comment button  -->
+            
             <v-btn
             @click="isExpanded = !isExpanded"
             class="ma-2"
@@ -54,37 +55,44 @@
                 far fa-comment-alt
             </v-icon>
             </v-btn>
-
-            <v-btn
-            @click="likedTweet"
-            class="likeClicked"
-            text
-            icon
-            >
-            <v-icon
-            small
-            color="green darken-2"
-            >
-                far fa-thumbs-up
-            </v-icon>
-            </v-btn>
+    <!-- Like/Unlike button -->
+        <div>
+      
+                <v-btn
+                @click="likedTweet"
+                class="likeClicked"
+                text
+                icon
+                >
+                <v-icon
+                small
+                color="white darken-2"
+                >
+                    far fa-thumbs-up
+                </v-icon>
+                </v-btn>
+        
+         
             <LikesCounter/>
 
+                <v-btn
+                @click="unlikedTweet(tweetId)"
+                class="unlikeClicked"
+                text
+                icon
+                >
+                <v-icon
+                small
+                color="white darken-2"
+                >
+                    far fa-thumbs-up
+                </v-icon>
+                </v-btn>
+        
+        </div>
+    <!-- Edit tweet button -->
             <v-btn
-            @click="unlikedTweet(tweetId)"
-            class="unlikeClicked"
-            text
-            icon
-            >
-            <v-icon
-            small
-            color="white darken-2"
-            >
-                far fa-thumbs-up
-            </v-icon>
-            </v-btn>
-
-            <v-btn
+            @click="editTweet"
             class="ma-2"
             text
             icon
@@ -96,7 +104,7 @@
                   far fa-edit
             </v-icon>
             </v-btn>
-
+    <!-- Delete buttm -->
             <v-btn
             @click="deleteTweet"
             class="ma-2"
@@ -110,15 +118,19 @@
                 far fa-trash-alt
             </v-icon>
             </v-btn>
-        
+    <!-- Expand comment button -->
             <v-btn
             @click="isExpanded = !isExpanded"
-            class="ma-2"
+             class="ma-2"
+            icon
             outlined
-            fab
-            color="white"
             >
-            <v-icon small>fas fa-caret-down</v-icon>
+             <v-icon
+            small
+            color="white darken-2"
+            >
+                fas fa-angle-down
+            </v-icon>
             </v-btn>
         </v-row>
       </v-list-item>
@@ -161,7 +173,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
         },
         data () {
             return {
-                // isLikedTweet: false,
+                isLiked: false,
                 isExpanded: false,
                 // numLikes: 0
             }  
@@ -214,7 +226,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     url: "https://tweeterest.ml/api/tweets",
                     method: "DELETE",
                     headers: {
-                    'X-Api-Key': process.env.VUE_APP_API_KEY
+                        'X-Api-Key': process.env.VUE_APP_API_KEY
                     },
                     data: {
                         loginToken: cookies.get('loginToken'),
@@ -225,6 +237,26 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 }).catch((err)=>{
                     console.error(err);
                 })
+            },
+            // Editing a tweet
+            editTweet() {
+               axios.request({
+                   url: "https://tweeterest.ml/api/tweets",
+                   method: "PATCH",
+                   headers: {
+                       'X-Api-Key': process.env.VUE_APP_API_KEY
+                   },
+                   data: {
+                       loginToken: cookies.get('loginToken'),
+                       tweetId: this.tweetId,
+                       content: this.content
+                   }
+               }).then((response)=>{
+                    console.log(response);
+                    console.log("You edited");
+               }).catch((err)=>{
+                    console.error(err);
+               })
             }
             
         }, 

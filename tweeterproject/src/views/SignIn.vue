@@ -1,58 +1,76 @@
 <template>
-    <div>
-    <!-- Vuetify Form for Signin -->
-        <v-form>
-            <v-row>
-                <v-col
-                    cols="12"
-                    md="6"
+  <v-app id="inspire">
+    <v-app-bar
+      app
+      color="grey lighten-3"
+      flat
+    > 
+    </v-app-bar>
+
+    <v-main class="grey lighten-3">
+      <v-container>
+          <v-col>
+            <v-sheet
+              min-height="60vh"
+              width="30vw"
+              rounded="lg"
+
+            >
+            <v-toolbar color="blue">
+                <v-toolbar-title>Login to Kwitter</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+                <v-row>
+                    <v-col
+                        cols="12"
+                        md="10"
                     >
-                    <v-card  elevation="12" outlined shaped tile>
-                        <v-toolbar color="blue">
-                            <v-toolbar-title>Login to Kwitter</v-toolbar-title>
-                        </v-toolbar>
-                        <v-card-text>
-                            <v-row>
-                                <v-col
-                                    cols="12"
-                                    md="8"
-                                >
-                                    <v-text-field
-                                        v-model="email"
-                                        :error-messages="emailErrors"
-                                        label="E-mail"
-                                        required
-                                        @input="$v.email.$touch()"
-                                        @blur="$v.email.$touch()"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col
-                                    cols="12"
-                                    md="8"
-                                >
-                                    <v-text-field
-                                        v-model="password"
-                                        :error-messages="passwordErrors"
-                                        label="Password"
-                                        type="password"
-                                        required
-                                        @input="$v.password.$touch()"
-                                        @blur="$v.password.$touch()"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                        </v-card-text>
-                        <v-btn class="mr-4" @click="login">Login</v-btn>
-                        <v-spacer></v-spacer>
-                        <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
-                        </v-card>
-                </v-col>
-            </v-row>
-        </v-form>
-    </div>
+                        <v-text-field
+                            v-model="email"
+                            :error-messages="emailErrors"
+                            label="E-mail"
+                            required
+                            @input="$v.email.$touch()"
+                            @blur="$v.email.$touch()"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col
+                        cols="1"
+                        md="10"
+                    >
+                        <v-text-field
+                            v-model="password"
+                            :error-messages="passwordErrors"
+                            label="Password"
+                            type="password"
+                            required
+                            @input="$v.password.$touch()"
+                            @blur="$v.password.$touch()"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+            <div>
+                <v-btn class="mr-4" @click="login">Login</v-btn>
+            </div>
+        
+            <v-spacer></v-spacer>
+            <div>
+                      <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
+            </div>
+            </v-sheet>
+          </v-col>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
+
+
+
+------------------
+
 
 <script>
 import axios from 'axios';

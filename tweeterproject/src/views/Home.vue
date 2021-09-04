@@ -33,7 +33,9 @@
       </v-responsive>
     </v-app-bar>
 
-    <v-navigation-drawer permanent app>
+    <v-navigation-drawer 
+    class="grey lighten-3"
+    permanent app>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
@@ -89,7 +91,7 @@
     </v-navigation-drawer>
 
     <v-main>
-<!--  -->
+      <newTweets/>
     </v-main>
 
   </v-app>
@@ -97,9 +99,12 @@
 
 
 <script>
+import newTweets from '../components/newTweets.vue';
 
   export default {
-  
+    components: {
+      newTweets
+    },
     data () {
       return {
         items: [

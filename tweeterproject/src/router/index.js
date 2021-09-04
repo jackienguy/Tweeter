@@ -16,7 +16,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/Profile',
+    path: '/Profile/:id',
     name: 'Profile',
     component: Profile
   },
@@ -39,7 +39,8 @@ const routes = [
     path: '/EditProfile',
     name: 'Edit Profile',
     component: EditProfile
-  }
+  },
+    
 ]
 
 const router = new VueRouter({

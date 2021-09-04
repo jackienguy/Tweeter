@@ -15,7 +15,10 @@
       clipped-right
       flat
       height="72"
+      color="blue darken-2"
     >
+      <h1>Home</h1>
+
       <v-spacer></v-spacer>
 
       <v-responsive max-width="156">
@@ -25,6 +28,7 @@
           hide-details
           rounded
           solo-inverted
+          placeholder="Search"
         ></v-text-field>
       </v-responsive>
     </v-app-bar>
@@ -85,24 +89,9 @@
     </v-navigation-drawer>
 
     <v-main>
-      <!--  -->
+<!--  -->
     </v-main>
 
-    <v-footer
-      app
-      color="transparent"
-      height="72"
-      inset
-    >
-      <v-text-field
-        background-color="grey lighten-1"
-        dense
-        flat
-        hide-details
-        rounded
-        solo
-      ></v-text-field>
-    </v-footer>
   </v-app>
 </template>
 
@@ -116,12 +105,12 @@
         items: [
           { title: 'Home', icon: 'fas fa-home', to: '#' },
           { title: 'Discovery', icon: 'fas fa-hashtag', to: '/Discovery' },
-          { title: 'Profile', icon: 'fas fa-user-alt', to: '/Profile' },
+          { title: 'Profile', icon: 'fas fa-user-alt', to: '/Profile/:id' },
         ],
         right: null,
         drawer: null 
       }
-    },
+    }
     
   }
 </script>

@@ -21,7 +21,6 @@
             </v-row>
             <v-btn @click="replyToTweet">Reply</v-btn>
         </v-container> 
-        {{tweetId}}
     </div>
 </template>
 

@@ -41,6 +41,7 @@ import CommentReplyBox from './CommentReplyBox.vue'
         },
         mounted(){
             this.getCommentOnTweet();
+            this.getCommentOnTweet();
         },
         methods: {
             getCommentOnTweet() {

@@ -14,19 +14,9 @@
       v-model="drawer"
       app
     >
-     <UserInfo
-      v-for="user in users"
-      :key="user.userId"
-      :userId="user.userId"
-      :bio="user.bio"
-      :username="user.username"
-      :email="user.email"
-      :password="user.password"
-      :birthdate="user.birthdate"
-      :imageUrl="user.imageUrl"
-      :bannerUrl="user.bannerUrl"
-     />
-     
+  
+      <UserInfoSheet/>
+   
       <v-divider></v-divider>
 
     <v-list
@@ -49,26 +39,27 @@
             </v-list-item>
           </v-list>
           <v-btn @click="logout">Logout</v-btn>
+           {{ this.$route.params.id}}
     </v-navigation-drawer>
 
 <!-- User profile main body -->
     <v-main>
         <newTweets/>
     </v-main>
+     
   </v-app>
 </template>
 
 <script>
-import axios from "axios";
-import cookies from "vue-cookies";
+import cookies from 'vue-cookies'
 import newTweets from "../components/newTweets.vue";
-import UserInfo from "../components/UserInfo.vue";
+import UserInfoSheet from "../components/UserInfoSheet.vue";
 
   export default {
     //
     components: {
       newTweets,
-      UserInfo
+      UserInfoSheet
     },
     data () {
       return {
@@ -77,59 +68,18 @@ import UserInfo from "../components/UserInfo.vue";
           { title: 'Discovery', icon: 'fas fa-hashtag', to: '/Discovery' },
         ],
         drawer: null, 
-        users: []
+        // I planned to have a seperate component for individual user info and render the info to the parent 'Profile', but ran into issue with v-sheet and props not populating on the 'Profile' component and was not able to find the issue thorough debugging so I moved on to work on other aspects of the project
       }
     },
-    created (){
-      this.getUserData()
-    },
-    methods: {
-      getUserData() {
-          axios.request({
-              url: "https://tweeterest.ml/api/users",
-              method: "GET",
-              headers: {
-                  'X-Api-Key': process.env.VUE_APP_API_KEY,
-              },
-              params: {
-                  userId: this.userId,
-              }
-          }).then((response)=> {
-              cookies.get('loginToken');
-              console.log(response);
-              console.log("successfully got info");
-          }).catch((err)=> {
-              console.error(err);
-          })
-      },
-      // log out
-      logout (){
-            cookies.remove.loginToken;
-            cookies.remove.username;
-            this.$router.push("/");
-      },
-      // delete profile
-      deleteProfile(){
-        axios.request({
-            url: "https://tweeterest.ml/api/users",
-            method: "DELETE",
-            headers: {
-              'X-Api-Key': process.env.VUE_APP_API_KEY,
-              'Content-Type': "application/json"
-            },
-            data: {
-              'loginToken': cookies.get('loginToken'),
-              'password': this.password
-            }
-          }).then((response)=> {
-              console.log(response);
-              console.log("log out success");
-              this.$router.push('/Register')
-          }).catch((err)=>{
-              console.error(err);
-          })
-      }
+     methods: {
+        // log out
+        logout (){
+              cookies.remove.loginToken;
+              cookies.remove.username;
+              this.$router.push("/");
+        },
     }
+}
     
-  }
+  
 </script>

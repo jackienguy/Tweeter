@@ -46,8 +46,11 @@
                 @input="$v.birthdate.$touch()"
                 @blur="$v.birthdate.$touch()"
             ></v-text-field>
-
-            <v-btn @click="updateProfile">Update Profile</v-btn>
+            <div>
+                <v-btn class="ma-2" @click="updateProfile">Update Profile</v-btn>
+                <v-btn @click="cancelEdit">Cancel</v-btn>
+            </div>
+            
         </v-card-text>
         </v-card>
     
@@ -134,8 +137,11 @@ import axios from 'axios';
             }).catch((err)=> {
                 console.error(err);
             })
-        
+        },
+        cancelEdit(){
+          this.$router.push('/Profile')
         }
+
     }
 }
 

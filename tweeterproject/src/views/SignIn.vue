@@ -11,12 +11,20 @@
       <v-container>
           <v-col>
             <v-sheet
+              id="signinForm"
               min-height="60vh"
-              width="30vw"
+              width="35vw"
               rounded="lg"
 
             >
             <v-toolbar color="blue">
+                <v-icon
+                large
+                color="blue darken-2"
+                class="ma-2"
+                >
+                    fas fa-kiwi-bird 
+                </v-icon>
                 <v-toolbar-title>Login to Kwitter</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -136,7 +144,10 @@ import { required, email } from 'vuelidate/lib/validators';
 </script>
 
 <style lang="scss" scoped>
-    #loginBtn {
-        margin-left: 20px;
-    }
+   #signinForm {
+       margin-left: 30vw;
+   }
+   #loginBtn {
+       margin-left: 20px;
+   }
 </style>

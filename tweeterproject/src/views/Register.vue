@@ -1,67 +1,100 @@
 <template>
 <!-- The form is from Vuetify -->
-  <form>
-    <v-card  elevation="12" outlined shaped tile>
-        <v-toolbar dark color="blue">
-            <v-toolbar-title>Create an Account for Tweeter</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-            <v-text-field
-                v-model="username"
-                :error-messages="nameErrors"
-                label="Username"
-                :counter="20"
-                required
-                @input="$v.username.$touch()"
-                @blur="$v.username.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="imageUrl"
-                :error-messages="imageUrlErrors"
-                label="Profile piuture URL"
-                @input="$v.imageUrl.$touch()"
-                @blur="$v.imageUrl.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="email"
-                :error-messages="emailErrors"
-                label="E-mail"
-                required
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="password"
-                :error-messages="passwordErrors"
-                label="Password"
-                type="password"
-                :counter="10"
-                required
-                @input="$v.password.$touch()"
-                @blur="$v.password.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="bio"
-                :error-messages="bioErrors"
-                label="Bio"
-                :counter="200"
-                required
-                @input="$v.bio.$touch()"
-                @blur="$v.bio.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="birthdate"
-                :error-messages="birthdateErrors"
-                label="Birthday (YYYY-MM-DD)"
-                required
-                @input="$v.birthdate.$touch()"
-                @blur="$v.birthdate.$touch()"
-            ></v-text-field>
+<v-app id="inspire">
+    <v-app-bar
+      app
+      color="grey lighten-3"
+      flat
+    > 
+    </v-app-bar>
 
-            <v-btn class="mr-4" @click="submitSignup">Create Account</v-btn>
-        </v-card-text>
-    </v-card>
-  </form>
+    <v-main class="grey lighten-3">
+      <v-container>
+          <v-col>
+            <v-sheet
+              id="registerForm"
+              min-height="60vh"
+              width="50vw"
+              rounded="lg"
+            >
+            <v-toolbar color="blue">
+              <v-icon
+              large
+              color="blue darken-2"
+              class="ma-2"
+              >
+                  fas fa-kiwi-bird 
+              </v-icon>
+              <v-toolbar-title>Register for Kwitter</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-row>
+                  <v-col
+                      cols="12"
+                      md="10"
+                  >
+                      <v-card-text>
+                        <v-text-field
+                            v-model="username"
+                            :error-messages="nameErrors"
+                            label="Username"
+                            :counter="20"
+                            required
+                            @input="$v.username.$touch()"
+                            @blur="$v.username.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="imageUrl"
+                            :error-messages="imageUrlErrors"
+                            label="Profile piuture URL"
+                            @input="$v.imageUrl.$touch()"
+                            @blur="$v.imageUrl.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="email"
+                            :error-messages="emailErrors"
+                            label="E-mail"
+                            required
+                            @input="$v.email.$touch()"
+                            @blur="$v.email.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="password"
+                            :error-messages="passwordErrors"
+                            label="Password"
+                            type="password"
+                            :counter="10"
+                            required
+                            @input="$v.password.$touch()"
+                            @blur="$v.password.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="bio"
+                            :error-messages="bioErrors"
+                            label="Bio"
+                            :counter="200"
+                            required
+                            @input="$v.bio.$touch()"
+                            @blur="$v.bio.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="birthdate"
+                            :error-messages="birthdateErrors"
+                            label="Birthday (YYYY-MM-DD)"
+                            required
+                            @input="$v.birthdate.$touch()"
+                            @blur="$v.birthdate.$touch()"
+                        ></v-text-field>
+                        <v-btn class="mr-4" @click="submitSignup">Create Account</v-btn>
+                      </v-card-text>
+                  </v-col>
+              </v-row> 
+            </v-card-text>
+            </v-sheet>
+          </v-col>
+      </v-container>
+    </v-main>
+</v-app>
 </template>
 
 <script>
@@ -166,4 +199,7 @@
 </script>
 
 <style lang="scss" scoped>
+  #registerForm {
+    margin-left: 20vw
+  }
 </style>

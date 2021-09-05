@@ -18,6 +18,7 @@ const routes = [
   {
     path: '/Profile/:id',
     name: 'Profile',
+    props: true,
     component: Profile
   },
   {

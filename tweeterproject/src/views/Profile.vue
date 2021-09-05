@@ -15,16 +15,7 @@
       app
     >
   
-      <UserInfoSheet
-        :userId="userId"
-        :bio="bio"
-        :username="username"
-        :email="email"
-        :password="password"
-        :birthdate="birthdate"
-        :imageUrl="imageUrl"
-        :bannerUrl="bannerUrl"
-      />
+      <UserInfoSheet/>
    
       <v-divider></v-divider>
 

@@ -1,15 +1,18 @@
 <template>
     <div>
-        <TweetBody 
-        v-for="tweet in tweets" 
-        :key="tweet.tweetId" 
-        :content="tweet.content" 
-        :createdAt="tweet.createdAt" 
-        :username="tweet.username"
-        :tweetId="tweet.tweetId"
-        :userId="tweet.userId"
-        />
+        <div>
+            <TweetBody 
+            v-for="tweet in tweets" 
+            :key="tweet.tweetId" 
+            :content="tweet.content" 
+            :createdAt="tweet.createdAt" 
+            :username="tweet.username"
+            :tweetId="tweet.tweetId"
+            :userId="tweet.userId"
+            />
+        </div>>
     </div>
+    
 </template>
 
 <script>
@@ -27,6 +30,7 @@ import TweetBody from "./TweetBody.vue";
             }
         },
          mounted () {
+            this.getTweets();
             this.getTweets()
         },
         methods: {

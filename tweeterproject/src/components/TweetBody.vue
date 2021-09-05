@@ -26,12 +26,13 @@
           <v-img
             class="elevation-6"
             alt=""
-            :src="userImageUrl"
+            
           ></v-img>
+          <!-- :src="userImageUrl" -->
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{username}}</v-list-item-title>
+          <v-list-item-title>@ <b>{{username}}</b></v-list-item-title>
           <v-list-item-title>{{createdAt}}</v-list-item-title>
         </v-list-item-content>
 
@@ -56,8 +57,7 @@
             </v-icon>
             </v-btn>
     <!-- Like/Unlike button -->
-        <div>
-      
+            <div >
                 <v-btn
                 @click="likedTweet"
                 class="likeClicked"
@@ -66,18 +66,23 @@
                 >
                 <v-icon
                 small
-                color="white darken-2"
+                color="green darken-2"
                 >
                     far fa-thumbs-up
                 </v-icon>
                 </v-btn>
-        
+            </div>
          
-            <LikesCounter/>
+            <LikesCounter
+            :numLikesCount="numLikesCount"
+            :tweetId="tweetId"
+            />
 
+            <div>
                 <v-btn
-                @click="unlikedTweet(tweetId)"
+                @click="unlikedTweet"
                 class="unlikeClicked"
+                :disabled="this.numLikesCount <=0"
                 text
                 icon
                 >
@@ -88,9 +93,9 @@
                     far fa-thumbs-up
                 </v-icon>
                 </v-btn>
-        
-        </div>
+            </div>
     <!-- Edit tweet button -->
+        <div v-if="isAuthenticated">
             <v-btn
             @click="editTweet"
             class="ma-2"
@@ -104,7 +109,9 @@
                   far fa-edit
             </v-icon>
             </v-btn>
+        </div>
     <!-- Delete buttm -->
+        <div v-if="isAuthenticated">
             <v-btn
             @click="deleteTweet"
             class="ma-2"
@@ -118,6 +125,7 @@
                 far fa-trash-alt
             </v-icon>
             </v-btn>
+        </div>
     <!-- Expand comment button -->
             <v-btn
             @click="isExpanded = !isExpanded"
@@ -137,8 +145,6 @@
 
     <v-divider></v-divider>
 
-   
-       
     </v-card-actions>
     </v-card>
         <CommentsOnTweets
@@ -175,7 +181,8 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
             return {
                 isLiked: false,
                 isExpanded: false,
-                // numLikes: 0
+                numLikesCount: 0,
+                isAuthenticated: true
             }  
         },
         methods: {
@@ -194,19 +201,19 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     }
                 }).then((response)=>{
                     console.log("You liked a tweet" +response);
-                    this.isLikedTweet = !this.isLikedTweet;
-               
+                    this.isLiked = !this.isLiked;
+                    this.numLikesCount += 1
+                    cookies.set('numLikesCount', this.numLikesCount)
                 }).catch((err)=>{
                      console.error("Already liked the tweet" +err);
                 })
-                // this.numLikes += 1;
             },
             // unliking a tweet
             unlikedTweet () {
                 axios.request({
                     url: "https://tweeterest.ml/api/tweet-likes",
                     method: "DELETE",
-                     headers: {
+                    headers: {
                         'X-Api-Key': process.env.VUE_APP_API_KEY,
                         "Content-Type": "application/json"
                     },
@@ -214,8 +221,9 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                         loginToken: cookies.get('loginToken'),
                         tweetId: this.tweetId
                     }
-                }).then((response)=>{
+                }).then((response)=> {
                     console.log("unliked" +response);
+                    this.numLikesCount -= 1;
                 }).catch((err)=>{
                     console.error(err);
                 })
@@ -226,7 +234,8 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                     url: "https://tweeterest.ml/api/tweets",
                     method: "DELETE",
                     headers: {
-                        'X-Api-Key': process.env.VUE_APP_API_KEY
+                        'X-Api-Key': process.env.VUE_APP_API_KEY,
+                        "Content-Type": "application/json"
                     },
                     data: {
                         loginToken: cookies.get('loginToken'),

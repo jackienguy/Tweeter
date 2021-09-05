@@ -52,14 +52,10 @@
                     </v-col>
                 </v-row>
             </v-card-text>
-            <div>
-                <v-btn class="mr-4" @click="login">Login</v-btn>
+            <div id="loginBtn">
+                <v-btn class="mr-4" @click="login">Login</v-btn> Don't have an account? <router-link to="/Register">Sign Up</router-link>
             </div>
         
-            <v-spacer></v-spacer>
-            <div>
-                      <p>Don't have an account? <router-link to="/Register">Sign Up</router-link></p>
-            </div>
             </v-sheet>
           </v-col>
       </v-container>
@@ -140,5 +136,7 @@ import { required, email } from 'vuelidate/lib/validators';
 </script>
 
 <style lang="scss" scoped>
-    
+    #loginBtn {
+        margin-left: 20px;
+    }
 </style>

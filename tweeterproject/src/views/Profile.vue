@@ -15,7 +15,16 @@
       app
     >
   
-      <UserInfoSheet/>
+      <UserInfoSheet
+        :userId="userId"
+        :bio="bio"
+        :username="username"
+        :email="email"
+        :password="password"
+        :birthdate="birthdate"
+        :imageUrl="imageUrl"
+        :bannerUrl="bannerUrl"
+      />
    
       <v-divider></v-divider>
 
@@ -39,6 +48,7 @@
             </v-list-item>
           </v-list>
           <v-btn @click="logout">Logout</v-btn>
+           
            {{ this.$route.params.id}}
     </v-navigation-drawer>
 

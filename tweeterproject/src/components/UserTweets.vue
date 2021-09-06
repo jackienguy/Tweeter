@@ -52,9 +52,6 @@ import TweetBody from "./TweetBody.vue";
                 console.error(err);
             })
         },
-       
-        
-       
       }
     
 }

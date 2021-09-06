@@ -16,7 +16,30 @@
       <span class="text-h6 font-weight-light">Kwitter</span>
     </v-card-title>
 
-    <v-card-text class="text-h5 font-weight-bold">
+<!-- Use v-if/v-else to toggle tweet editing text field to display text field if isEditing is true when edit button is click, else, it will just display the tweet post. -->
+     <v-card-text 
+     class="text-h5 font-weight-bold"
+     v-if="isEditing = false"
+     >
+        <v-text-field v-model="content"
+            name="name"
+            label="label"
+            id="id"
+        ></v-text-field>
+        <v-btn 
+        id="save-btn"
+        @click="editTweet" 
+        color="success"
+        >
+            Save
+        </v-btn>
+        <v-btn @click="isEditing = false" color="error">Cancel</v-btn>
+     </v-card-text>
+
+    <v-card-text 
+    class="text-h5 font-weight-bold"
+    v-else
+    >
       {{content}}
     </v-card-text>
 
@@ -97,7 +120,7 @@
     <!-- Edit tweet button -->
         <div v-if="isAuthenticated">
             <v-btn
-            @click="editTweet"
+            @click="tweetEditBtn"
             class="ma-2"
             text
             icon
@@ -182,7 +205,8 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 isLiked: false,
                 isExpanded: false,
                 numLikesCount: 0,
-                isAuthenticated: true
+                isAuthenticated: true,
+                isEditing: true
             }  
         },
         methods: {
@@ -248,12 +272,16 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 })
             },
             // Editing a tweet
+            tweetEditBtn(){
+                this.isEditing = false
+            },
             editTweet() {
                axios.request({
                    url: "https://tweeterest.ml/api/tweets",
                    method: "PATCH",
                    headers: {
-                       'X-Api-Key': process.env.VUE_APP_API_KEY
+                       'X-Api-Key': process.env.VUE_APP_API_KEY,
+                       "Content-Type": "application/json"
                    },
                    data: {
                        loginToken: cookies.get('loginToken'),
@@ -263,8 +291,9 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                }).then((response)=>{
                     console.log(response);
                     console.log("You edited");
+                    this.isEditing = true
                }).catch((err)=>{
-                    console.error(err);
+                    console.error(err.response);
                })
             }
             
@@ -279,5 +308,8 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
  }
  #ma-2-1{
      color: gray;
+ }
+ #save-btn {
+     margin: 10px;
  }
 </style>

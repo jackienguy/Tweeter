@@ -4,7 +4,7 @@
     class="mx-auto"
     color="#26c6da"
     dark
-    width="70vw"
+    width="55vw"
   >
     <v-card-title>
       <v-icon
@@ -19,7 +19,7 @@
 <!-- Use v-if/v-else to toggle tweet editing text field to display text field if isEditing is true when edit button is click, else, it will just display the tweet post. -->
      <v-card-text 
      class="text-h5 font-weight-bold"
-     v-if="isEditing = false"
+     v-if="isEditing"
      >
         <v-text-field v-model="content"
             name="name"
@@ -28,12 +28,17 @@
         ></v-text-field>
         <v-btn 
         id="save-btn"
-        @click="editTweet" 
+        @click="editTweetSave" 
         color="success"
         >
             Save
         </v-btn>
-        <v-btn @click="isEditing = false" color="error">Cancel</v-btn>
+        <v-btn 
+        @click="isEditing = false" 
+        color="error"
+        >
+            Cancel
+        </v-btn>
      </v-card-text>
 
     <v-card-text 
@@ -80,32 +85,10 @@
             </v-icon>
             </v-btn>
     <!-- Like/Unlike button -->
-            <div >
+            <div v-if="!isLiked">
                 <v-btn
                 @click="likedTweet"
-                class="likeClicked"
-                text
-                icon
-                >
-                <v-icon
-                small
-                color="green darken-2"
-                >
-                    far fa-thumbs-up
-                </v-icon>
-                </v-btn>
-            </div>
-         
-            <LikesCounter
-            :numLikesCount="numLikesCount"
-            :tweetId="tweetId"
-            />
-
-            <div>
-                <v-btn
-                @click="unlikedTweet"
-                class="unlikeClicked"
-                :disabled="this.numLikesCount <=0"
+                class="ma-2"
                 text
                 icon
                 >
@@ -117,10 +100,32 @@
                 </v-icon>
                 </v-btn>
             </div>
+
+            <div v-else>
+                <v-btn
+                @click="unlikedTweet"
+                class="ma-2"
+               
+                text
+                icon
+                >
+                <v-icon
+                small
+                color="green darken-2"
+                >
+                    far fa-thumbs-up
+                </v-icon>
+                </v-btn>
+            </div>
+
+             <LikesCounter
+            :numLikesCount="numLikesCount"
+            :tweetId="tweetId"
+            />
     <!-- Edit tweet button -->
         <div v-if="isAuthenticated">
             <v-btn
-            @click="tweetEditBtn"
+            @click="isEditing = !isEditing"
             class="ma-2"
             text
             icon
@@ -206,7 +211,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 isExpanded: false,
                 numLikesCount: 0,
                 isAuthenticated: true,
-                isEditing: true
+                isEditing: false
             }  
         },
         methods: {
@@ -272,10 +277,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                 })
             },
             // Editing a tweet
-            tweetEditBtn(){
-                this.isEditing = false
-            },
-            editTweet() {
+            editTweetSave() {
                axios.request({
                    url: "https://tweeterest.ml/api/tweets",
                    method: "PATCH",
@@ -291,7 +293,7 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                }).then((response)=>{
                     console.log(response);
                     console.log("You edited");
-                    this.isEditing = true
+                    this.isEditing = false
                }).catch((err)=>{
                     console.error(err.response);
                })

@@ -68,7 +68,17 @@
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
+            
             </v-list-item>
+     <!-- Logout button -->
+             <v-btn 
+             class="ml-14 mt-2" 
+             small 
+             @click="logout"
+             >
+                Logout
+             </v-btn>
+
           </v-list>
         </v-navigation-drawer>
 
@@ -100,6 +110,7 @@
 
 <script>
 import newTweets from '../components/newTweets.vue';
+import cookies from 'vue-cookies'
 
   export default {
     components: {
@@ -115,10 +126,23 @@ import newTweets from '../components/newTweets.vue';
         right: null,
         drawer: null 
       }
-    }
-    
+    },
+     methods: {
+        // log out
+        logout (){
+              cookies.remove.loginToken;
+              cookies.remove.username;
+              this.$router.push("/");
+        },
+     }
   }
 </script>
+
+<style lang="scss" scoped>
+  #logout {
+     margin: 10px;
+  }
+</style>
 
 
 

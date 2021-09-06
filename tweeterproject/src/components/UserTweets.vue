@@ -10,7 +10,7 @@
             :tweetId="tweet.tweetId"
             :userId="tweet.userId"
             />
-        </div>>
+        </div>
     </div>
     
 </template>

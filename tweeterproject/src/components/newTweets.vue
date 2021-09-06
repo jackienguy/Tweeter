@@ -1,12 +1,13 @@
 <template>
   <div>
       <!-- User new tweet input box -->
-      <v-container fluid>
+      <v-container class="pb-10 ml-6">
         <v-list-item-avatar>
             <v-img src="https://images.unsplash.com/photo-1521714161819-15534968fc5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"></v-img>
         </v-list-item-avatar>
         <v-row>
                 <v-col
+                class="ml-6"
                 cols="15"
                 md="10"
                 >
@@ -18,7 +19,12 @@
                 ></v-textarea>
                 </v-col>
             </v-row>
-            <v-btn @click="addNewTweet">Post</v-btn>
+            <v-btn  
+            class="ml-6" 
+            @click="addNewTweet"
+            >
+              Post
+            </v-btn>
       </v-container>
       <v-divider></v-divider> 
       <UserTweets/>

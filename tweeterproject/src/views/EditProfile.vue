@@ -1,60 +1,94 @@
 <template>
-    <div>
-        <v-card  elevation="12" outlined shaped tile>
-        <v-toolbar dark color="blue">
-            <v-toolbar-title>Edit Profile</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-            <v-text-field
-                v-model="username"
-                :error-messages="nameErrors"
-                label="Username"
-                :counter="20"
-                required
-                @input="$v.username.$touch()"
-                @blur="$v.username.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="imageUrl"
-                label="imageUrl"
-                required
-                @input="$v.imageUrl.$touch()"
-                @blur="$v.username.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="email"
-                :error-messages="emailErrors"
-                label="E-mail"
-                required
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="bio"
-                :error-messages="bioErrors"
-                label="Bio"
-                :counter="200"
-                required
-                @input="$v.bio.$touch()"
-                @blur="$v.bio.$touch()"
-            ></v-text-field>
-            <v-text-field
-                v-model="birthdate"
-                :error-messages="birthdateErrors"
-                label="Birthday"
-                required
-                @input="$v.birthdate.$touch()"
-                @blur="$v.birthdate.$touch()"
-            ></v-text-field>
-            <div>
-                <v-btn class="ma-2" @click="updateProfile">Update Profile</v-btn>
-                <v-btn @click="cancelEdit">Cancel</v-btn>
-            </div>
-            
-        </v-card-text>
-        </v-card>
-    
-    </div>
+<!-- The form is from Vuetify -->
+<v-app id="inspire">
+    <v-app-bar
+      app
+      color="grey lighten-3"
+      flat
+    > 
+    </v-app-bar>
+
+    <v-main class="grey lighten-3">
+      <v-container>
+          <v-col>
+            <v-sheet
+              id="profileEditForm"
+              min-height="60vh"
+              width="50vw"
+              rounded="lg"
+            >
+            <v-toolbar color="blue">
+              <v-icon
+              large
+              color="blue darken-2"
+              class="ma-2"
+              >
+                  fas fa-kiwi-bird 
+              </v-icon>
+              <v-toolbar-title>Edit Profile</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-row>
+                  <v-col
+                      cols="12"
+                      md="10"
+                  >
+                  <v-card-text>
+                      <v-text-field
+                          v-model="username"
+                          :error-messages="nameErrors"
+                          label="Username"
+                          :counter="20"
+                          required
+                          @input="$v.username.$touch()"
+                          @blur="$v.username.$touch()"
+                      ></v-text-field>
+                      <v-text-field
+                          v-model="imageUrl"
+                          label="imageUrl"
+                          required
+                          @input="$v.imageUrl.$touch()"
+                          @blur="$v.username.$touch()"
+                      ></v-text-field>
+                      <v-text-field
+                          v-model="email"
+                          :error-messages="emailErrors"
+                          label="E-mail"
+                          required
+                          @input="$v.email.$touch()"
+                          @blur="$v.email.$touch()"
+                      ></v-text-field>
+                      <v-text-field
+                          v-model="bio"
+                          :error-messages="bioErrors"
+                          label="Bio"
+                          :counter="200"
+                          required
+                          @input="$v.bio.$touch()"
+                          @blur="$v.bio.$touch()"
+                      ></v-text-field>
+                      <v-text-field
+                          v-model="birthdate"
+                          :error-messages="birthdateErrors"
+                          label="Birthday"
+                          required
+                          @input="$v.birthdate.$touch()"
+                          @blur="$v.birthdate.$touch()"
+                      ></v-text-field>
+                      <div>
+                          <v-btn class="ma-2" @click="updateProfile">Update Profile</v-btn>
+                          <v-btn @click="cancelEdit">Cancel</v-btn>
+                      </div>
+                      
+                  </v-card-text>
+                </v-col>
+              </v-row> 
+            </v-card-text>
+            </v-sheet>
+          </v-col>
+      </v-container>
+    </v-main>
+</v-app>
 </template>
 
 <script>
@@ -149,7 +183,9 @@ import axios from 'axios';
 
 
 <style lang="scss" scoped>
-
+  #profileEditForm {
+      margin-left: 20vw
+  }
 </style>
 
 

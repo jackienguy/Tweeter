@@ -1,4 +1,5 @@
 <template>
+<!-- Using Vuetify wireframe for layout and design -->
   <v-app id="inspire">
     <v-system-bar app>
       <v-spacer></v-spacer>
@@ -28,10 +29,10 @@
       color="grey lighten-3"
     >
       <v-sheet
-    class="pa-4"
-    height="250"
-    color="grey lighten-3"
-    >
+      class="pa-4"
+      height="250"
+      color="grey lighten-3"
+      >
         <v-avatar
           class="mb-4"
           color="grey darken-1"
@@ -48,15 +49,8 @@
           Edit
         </v-btn>
 
-        <v-list-item link>
-            <v-list-item-content>
-              <v-list-item-title class="text-h6">
-                <b>{{this.users.username}}</b> 
-              </v-list-item-title>
-              <v-list-item-subtitle>{{users.email}}</v-list-item-subtitle>
-              <v-list-item-subtitle>{{users.bio}}</v-list-item-subtitle>
-            </v-list-item-content>
-        </v-list-item>
+      <UserProfileInfo/>
+
     </v-sheet>
    
       <v-divider></v-divider>
@@ -104,39 +98,23 @@
 
 <script>
 import cookies from 'vue-cookies'
-import axios from 'axios'
 import newTweets from "../components/newTweets.vue";
-// import UserProfileInfo from '../components/UserProfileInfo.vue'
+import UserProfileInfo from '../components/UserProfileInfo.vue'
 
   export default {
     //
     components: {
       newTweets,
-      // UserProfileInfo
+      UserProfileInfo
     },
     data () {
       return {
         items: [
-          { title: 'Home', icon: 'fas fa-home', to: '/Home' },
+          { title: 'Home', icon: 'fas fa-home', to: '/Home/:profileId' },
           { title: 'Discovery', icon: 'fas fa-hashtag', to: '/Discovery' },
         ],
         drawer: null, 
-        users: [
-          {
-            userId: '',
-            email: '',
-            username: '',
-            bio: '',
-            birthdate: '',
-            imageUrl: ''
-          }
-
-        ]
-        // I planned to have a seperate component for individual user info and render the info to the parent 'Profile', but ran into issue with v-sheet and props not populating on the 'Profile' component and was not able to find the issue thorough debugging so I moved on to work on other aspects of the project
       }
-    },
-    mounted () {
-            this.getUserInfo();
     },
      methods: {
         // log out
@@ -145,25 +123,8 @@ import newTweets from "../components/newTweets.vue";
               cookies.remove.username;
               this.$router.push("/");
         },
-        getUserInfo() {
-              axios.request ({
-                  url: "https://tweeterest.ml/api/users",
-                  method: "GET",
-                  headers: {
-                      'X-Api-Key': process.env.VUE_APP_API_KEY
-                  },
-                  params: {
-                      userId: this.userId
-                  },
-              }).then((response)=>{
-                  console.log(response);
-                  console.log("got user date");
-              }).catch((err)=>{
-                  console.error(err);
-              })
-        },
         editProfileBtn () {
-          this.$route.push('/editProfile')
+          this.$router.push('/editProfile')
         }
     }
 }

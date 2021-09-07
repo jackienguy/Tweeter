@@ -4,7 +4,7 @@
     class="mx-auto"
     color="#26c6da"
     dark
-    width="55vw"
+    width="60vw"
   >
     <v-card-title>
       <v-icon
@@ -291,16 +291,13 @@ import CommentsOnTweets from "./CommentsOnTweets.vue";
                        content: this.content
                    }
                }).then((response)=>{
-                    console.log(response);
-                    console.log("You edited");
+                    console.log(response)
                     this.isEditing = false
                }).catch((err)=>{
                     console.error(err.response);
                })
-            }
-            
+            } 
         }, 
-       
     }
 </script>
 

@@ -13,10 +13,14 @@
     <v-app-bar
       app
       clipped-right
-      flat
+      fla
       height="72"
       color="blue darken-2"
     >
+      <div id="nav-mobile-icon" v-if="isMobileView">
+        <v-icon class="ma-5">fas fa-bars</v-icon>
+      </div>
+
       <h1>Home</h1>
 
       <v-spacer></v-spacer>
@@ -33,71 +37,62 @@
       </v-responsive>
     </v-app-bar>
 
-    <v-navigation-drawer 
-    class="grey lighten-3"
-    permanent app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            <v-icon
-              large
-              color="blue darken-2"
-            >
-                fas fa-kiwi-bird 
-            </v-icon> Kwitter
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+    <div v-if="!isMobileView">
+      <v-navigation-drawer 
+      class="grey lighten-3"
+      permanent app>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              <v-icon
+                large
+                color="blue darken-2"
+              >
+                  fas fa-kiwi-bird 
+              </v-icon> Kwitter
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-      <v-divider></v-divider>
+        <v-divider></v-divider>
 
-        <v-list
-          dense
-          nav
-        >
-          <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            :to="item.to"
-            link
+          <v-list
+            dense
+            nav
           >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            <v-list-item
+              v-for="item in items"
+              :key="item.title"
+              :to="item.to"
+              link
+            >
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-            
-            </v-list-item>
-     <!-- Logout button -->
-             <v-btn 
-             class="ml-14 mt-2" 
-             small 
-             @click="logout"
-             >
-                Logout
-             </v-btn>
-
-          </v-list>
-        </v-navigation-drawer>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+              
+              </v-list-item>
+      <!-- Logout button -->
+              <v-btn 
+              class="ml-14 mt-2" 
+              small 
+              @click="logout"
+              >
+                  Logout
+              </v-btn>
+      
+            </v-list>
+          </v-navigation-drawer>
+    </div>
 
     <v-navigation-drawer
       app
       clipped
       right
     >
-      <v-list>
-        <v-list-item
-          v-for="n in 5"
-          :key="n"
-          link
-        >
-          <v-list-item-content>
-            <v-list-item-title>Item {{ n }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
     </v-navigation-drawer>
 
     <v-main>
@@ -110,7 +105,8 @@
 
 <script>
 import newTweets from '../components/newTweets.vue';
-import cookies from 'vue-cookies'
+import cookies from 'vue-cookies';
+import axios from 'axios';
 
   export default {
     components: {
@@ -124,7 +120,10 @@ import cookies from 'vue-cookies'
           { title: 'Profile', icon: 'fas fa-user-alt', to: '/Profile/:id' },
         ],
         right: null,
-        drawer: null 
+        drawer: null,
+        profileId: this.$route.params.profileId,
+        userId: '',
+        isMobileView: true
       }
     },
      methods: {
@@ -133,6 +132,25 @@ import cookies from 'vue-cookies'
               cookies.remove.loginToken;
               cookies.remove.username;
               this.$router.push("/");
+        },
+        mounted () {
+            this.getUserInfo();
+        },
+        getUserInfo() {
+              axios.request ({
+                  url: "https://tweeterest.ml/api/users",
+                  method: "GET",
+                  headers: {
+                      'X-Api-Key': process.env.VUE_APP_API_KEY
+                  },
+                  params: {
+                      userId: this.userId
+                  },
+              }).then((response)=>{
+                  console.log(response);
+              }).catch((err)=>{
+                  console.error(err);
+              })
         },
      }
   }

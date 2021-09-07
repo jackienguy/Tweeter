@@ -45,10 +45,7 @@
                         ></v-text-field>
                         <v-text-field
                             v-model="imageUrl"
-                            :error-messages="imageUrlErrors"
                             label="Profile piuture URL"
-                            @input="$v.imageUrl.$touch()"
-                            @blur="$v.imageUrl.$touch()"
                         ></v-text-field>
                         <v-text-field
                             v-model="email"
@@ -185,11 +182,12 @@
             console.log("You successfully created an account");
             cookies.set ('loginToken', response.data.token);
             cookies.set ('username', response.data.username);
-            console.log(response.data.token);
-            this.$router.push("/");
+            
+            this.$router.push("/#");
         }).catch((err)=>{
-            console.log(err.request);
-            console.log(err.response);
+            console.log(err);
+            return alert ("Invalid Fields")
+            
         })
       },
      

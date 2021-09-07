@@ -1,4 +1,5 @@
 <template>
+<!-- Using Vuetify wireframe and card template  -->
   <v-app id="inspire">
     <v-app-bar
       app
@@ -30,6 +31,7 @@
             <v-card-text>
                 <v-row>
                     <v-col
+                       
                         cols="12"
                         md="10"
                     >
@@ -45,7 +47,7 @@
                 </v-row>
                 <v-row>
                     <v-col
-                        cols="1"
+                        cols="12"
                         md="10"
                     >
                         <v-text-field
@@ -132,9 +134,7 @@ import { required, email } from 'vuelidate/lib/validators';
                 }).then((response) => {
                     cookies.set ('loginToken', response.data.loginToken);
                     cookies.set('username', response.data.username)
-                    console.log(response.data.loginToken);
-                    console.log(response);
-                    this.$router.push("/Home")
+                    this.$router.push("/Home/:profileId")
                 }).then((err)=>{
                     console.log(err);
                 })

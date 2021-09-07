@@ -43,7 +43,6 @@ import axios from 'axios'
                     },
                 }).then((response)=>{
                     console.log(response);
-                    console.log("got user date");
                 }).catch((err)=>{
                     console.error(err);
                 })

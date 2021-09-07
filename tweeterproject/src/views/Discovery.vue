@@ -104,9 +104,9 @@
     data () {
       return {
         items: [
-          { title: 'Home', icon: 'fas fa-home', to: '/Home' },
+          { title: 'Home', icon: 'fas fa-home', to: '/Home/:profileId' },
           { title: 'Discovery', icon: 'fas fa-hashtag', to: '#' },
-          { title: 'Profile', icon: 'fas fa-user-alt', to: '/Profile/:id' },
+          { title: 'Profile', icon: 'fas fa-user-alt', to: '/Profile/:profileId' },
         ],
         right: null,
         drawer: null 

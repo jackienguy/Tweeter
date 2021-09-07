@@ -47,7 +47,6 @@ import TweetBody from "./TweetBody.vue";
             }).then((response)=>{
                 console.log(response.data);
                 this.tweets = response.data
-                console.log("getting content");
             }).catch((err)=>{
                 console.error(err);
             })

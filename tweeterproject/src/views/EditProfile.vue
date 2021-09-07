@@ -164,8 +164,7 @@ import axios from 'axios';
                   imageUrl:this.imageUrl
                 },
             }).then((response)=> {
-                cookies.get('loginToken'),
-                console.log("update success"); 
+                cookies.get('loginToken'), 
                 console.log(response);
                 this.$router.push("/Profile")
             }).catch((err)=> {
@@ -173,7 +172,7 @@ import axios from 'axios';
             })
         },
         cancelEdit(){
-          this.$router.push('/Profile')
+          this.$router.push('/Profile/:id')
         }
 
     }
@@ -189,30 +188,4 @@ import axios from 'axios';
 </style>
 
 
-
-
-
-
-// methods: {
-//       editProfile (){
-//         axios.request({
-//           url:"https://tweeterest.ml/api/users",
-//           method: "PATCH",
-//            headers: {
-//                 'X-Api-Key': process.env.VUE_APP_API_KEY,
-//                 "Content-Type": "application/json"
-//             },
-//             data: {
-//                 username: this.username,
-//                 email: this.email,
-//                 bio: this.bio,
-//                 birthdate: "2000-09-02"   
-//             }
-//         }).then((response)=>{
-//           console.log(response);
-//           console.log("this worked ");
-//           cookies.get('loginToken')
-//         })
-//       }
-//     }
   

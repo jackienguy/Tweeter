@@ -11,13 +11,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Home',
+    path: '/Home/:profileId',
     name: 'Home',
     component: Home
   },
   {
     path: '/Profile/:profileId',
-    name: 'Profile',
+    name: 'Main Profile',
     props: true,
     component: Profile
   },

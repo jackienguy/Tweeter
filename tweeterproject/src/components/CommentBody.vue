@@ -4,7 +4,7 @@
       class="mx-auto"
       color="caf0f8"
       dark
-      width="50vw"
+      width="60vw"
     >
       <v-card-title>
         <v-icon

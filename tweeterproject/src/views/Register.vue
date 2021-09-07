@@ -83,6 +83,7 @@
                             @blur="$v.birthdate.$touch()"
                         ></v-text-field>
                         <v-btn class="mr-4" @click="submitSignup">Create Account</v-btn>
+                        <v-btn id="cancelBtn" class="mr-4" @click="cancelSignup">Cancel</v-btn>
                       </v-card-text>
                   </v-col>
               </v-row> 
@@ -190,6 +191,9 @@
             
         })
       },
+      cancelSignup () {
+        this.$router.push('/#');
+      }
      
     },
   }
@@ -199,5 +203,8 @@
 <style lang="scss" scoped>
   #registerForm {
     margin-left: 20vw
+  }
+  #cancelBtn {
+    margin: 10px;
   }
 </style>

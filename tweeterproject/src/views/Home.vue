@@ -18,9 +18,38 @@
       color="blue darken-2"
     >
       <div id="nav-mobile-icon" v-if="isMobileView">
-        <v-icon class="ma-5">fas fa-bars</v-icon>
-      </div>
+         <v-navigation-drawer
+         v-model="drawer"
+        :mini-variant.sync="mini"
+        permanent
+      >
+        <v-btn
+            icon
+            @click.stop="mini = !mini"
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+      
+          <v-divider></v-divider>
 
+          <v-list dense>
+            <v-list-item
+              v-for="item in items"
+              :key="item.title"
+              link
+            >
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-navigation-drawer>
+      </div>
+      
       <h1>Home</h1>
 
       <v-spacer></v-spacer>
@@ -123,7 +152,8 @@ import axios from 'axios';
         drawer: null,
         profileId: this.$route.params.profileId,
         userId: '',
-        isMobileView: true
+        isMobileView: true,
+        mini: true,
       }
     },
      methods: {
@@ -152,6 +182,13 @@ import axios from 'axios';
                   console.error(err);
               })
         },
+        // For mobile response - creating a method which will adjust page view based on screeen size. Mobile view is set to true if the inner width is <= 960 px to display mobile toggle menu
+        handleView() {
+          this.isMobileView = window.innerWidth <= 960;
+        }
+     },
+     created() {
+       this.handleView();
      }
   }
 </script>
